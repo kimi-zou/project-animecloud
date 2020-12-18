@@ -32,6 +32,13 @@ export const login = (user) => async dispatch => {
   return response;
 };
 
+// 2. Restore User
+export const restoreUser = () => async dispatch => {
+  const res = await fetch('/api/session');
+  dispatch(setUser(res.data.user));
+  return res;
+};
+
 //---------------- State -------------------
 const initialState = { user: null };
 
