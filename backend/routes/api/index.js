@@ -5,11 +5,12 @@ const asyncHandler = require("express-async-handler");
 // Internal dependencies
 const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
+const sessionRouter = require("./session");
+const userRouter = require("./users");
 
-//-----------------------------------------
-
+//-------------- Testing routes ----------------
 // API test route: server setup
-router.post('/hello-world', (req, res) => {
+router.post('/hello/world', (req, res) => {
   res.json({ requestBody: req.body });
 });
 
@@ -33,5 +34,9 @@ router.get("/restore-user", restoreUser, (req, res) => {
 router.get("/require-auth", requireAuth, (req, res) => {
   return res.json(req.user);
 });
+
+//-------------- API routes ----------------
+router.use("/session", sessionRouter);
+router.use("/users", userRouter);
 
 module.exports = router;
