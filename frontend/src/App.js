@@ -1,6 +1,18 @@
+// External dependencies
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+
+// Internal dependencies
+import LoginFormPage from './components/LoginFormPage';
+
+//--------------------- Component ------------------------
 function App() {
   return (
-    <h1>Hello from App</h1>
+    <Switch>
+      <Route path="/login">
+        <LoginFormPage />
+      </Route>
+    </Switch>
   );
 }
 

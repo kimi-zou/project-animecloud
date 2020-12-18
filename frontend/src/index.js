@@ -9,6 +9,7 @@ import './index.css';
 import App from './App';
 import configureStore from "./store";
 import { restoreCSRF, fetch } from "./store/csrf";
+import * as sessionActions from './store/session';
 
 // Expose store to window
 const store = configureStore();
@@ -16,6 +17,7 @@ if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
   window.csrfFetch = fetch;
   window.store = store;
+  window.sessionActions = sessionActions;
 };
 
 // Root Component 
