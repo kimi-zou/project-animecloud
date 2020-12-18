@@ -10,7 +10,7 @@ const userRouter = require("./users");
 
 //-------------- Testing routes ----------------
 // API test route: server setup
-router.post('/hello/world', (req, res) => {
+router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });
 });
 
