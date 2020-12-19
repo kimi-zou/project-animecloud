@@ -54,6 +54,15 @@ export const signup = (user) => async (dispatch) => {
   return response;
 };
 
+// 4. Logout
+export const logout = () => async (dispatch) => {
+  const response = await fetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser());
+  return response;
+};
+
 //---------------- State -------------------
 const initialState = { user: null };
 
