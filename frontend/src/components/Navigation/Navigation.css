@@ -1,0 +1,38 @@
+.nav {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  align-content: space-between;
+  margin: 0 auto;
+  border-top: 4px solid #f50;
+  background: #333;
+  width: 1240px;
+  height: 60px;
+}
+
+/* ------------------  Logo   ----------------- */
+.nav__logo {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+}
+
+.nav__logo-icon {
+  width: 30px;
+  margin-right: 5px;
+}
+
+.nav__logo-text {
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+
+.nav__auth {
+  /* position: absolute;
+  top: 20px;
+  right: 30px; */
+}

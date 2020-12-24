@@ -1,7 +1,7 @@
 // External dependencies
 import Cookies from "js-cookie";
 
-
+//-----------------------------------------------------
 // Define fetch function
 export const fetch = async (url, options={}) => {
   // Set default as "GET" method
@@ -29,6 +29,7 @@ export const fetch = async (url, options={}) => {
   return res;
 }
 
+//-----------------------------------------------------
 // call this to get the "XSRF-TOKEN" cookie, should only be used in development
 export const restoreCSRF = () => {
   return fetch("/api/csrf/restore");

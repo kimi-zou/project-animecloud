@@ -12,21 +12,28 @@ const ProfileButton = ({ user }) => {
   // State
   const [showMenu, setShowMenu] = useState(false);
 
-  // Helper function
+  // Hook: useEffect
+  useEffect(() => {
+    if (!showMenu) return; // If menu is opened, return
+
+    // Helper function
+    const closeMenu = () => {
+      setShowMenu(false);
+    };
+
+    document.addEventListener('click', closeMenu); // Click anywhere else, close menu
+
+    // Clean up: close menu and remove event listener
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+
+  //-----------------------------------------
+  // Handler: open menu
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
-
-  // Hook: useEffect
-  useEffect(() => {
-    if (!showMenu) return;
-    const closeMenu = () => {
-      setShowMenu(false);
-    };
-    document.addEventListener('click', closeMenu);
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
 
   // Handler: logout
   const logout = (e) => {

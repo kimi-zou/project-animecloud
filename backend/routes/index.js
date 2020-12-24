@@ -5,16 +5,18 @@ const router = express.Router();
 // Internal dependencies
 const apiRouter = require('./api');
 
-// Moute routes
+//------------------ Moute routes -------------------
 router.use('/api', apiRouter);
 
+//------------------- Define routes ------------------
 // Test route
 router.get('/hello/world', (req, res) => {
-  res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.cookie('XSRF-TOKEN', req.csrfToken()); // Send csrf-token to client
   res.send('hello world!');
 })
 
-// Serve React build files in production
+//------------------- Restore csrf Token fot both development and production ------------------
+// 1. Serve React build files in production
 if (process.env.NODE_ENV === "production") {
   const path = require('path');
 
@@ -38,7 +40,7 @@ if (process.env.NODE_ENV === "production") {
   });
 };
 
- // Add a XSRF-TOKEN cookie in development
+ // 2. Add a XSRF-TOKEN cookie in development
  if (process.env.NODE_ENV !== "production") {
   router.get("/api/csrf/restore", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());

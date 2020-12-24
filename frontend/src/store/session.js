@@ -6,13 +6,13 @@ const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
 
 //---------------- POJO Actions -------------------
-// 1. Set user
+// 1. Set session user
 const setUser = (user) => ({
     type: SET_USER,
     payload: user,
 });
 
-// 2. Remove user
+// 2. Remove session user
 const removeUser = () => ({
   type: REMOVE_USER,
 });

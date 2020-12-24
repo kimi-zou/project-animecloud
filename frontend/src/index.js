@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Internal dependencies
 import './index.css';
@@ -11,15 +12,18 @@ import configureStore from "./store";
 import { restoreCSRF, fetch } from "./store/csrf";
 import * as sessionActions from './store/session';
 
+//-----------------------------------------------
 // Expose store to window
 const store = configureStore();
+
 if (process.env.NODE_ENV !== "production") {
-  restoreCSRF();
+  restoreCSRF(); // Get csrf token when app loaded
   window.csrfFetch = fetch;
   window.store = store;
   window.sessionActions = sessionActions;
 };
 
+//-----------------------------------------------
 // Root Component 
 const Root = () => {
   return (
@@ -31,6 +35,7 @@ const Root = () => {
   )
 };
 
+//-----------------------------------------------
 // Render virtual DOM
 ReactDOM.render(
   <React.StrictMode>

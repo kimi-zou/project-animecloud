@@ -7,7 +7,7 @@ const { User } = require("../db/models");
 
 //-----------------------------------------
 
-// 1. Send JWT Cookie
+// 1. Set JWT Cookie after user login/signup
 const setTokenCookie = (res, user) => {
   // create a token
   const token = jwt.sign(
