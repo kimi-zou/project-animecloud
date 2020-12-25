@@ -75,6 +75,7 @@
 /* -------------  Hero img  ------------- */
 .nav__hero-images {
   position: relative;
+  z-index: -10;
   width: 1240px;
   height: 580px;
 }

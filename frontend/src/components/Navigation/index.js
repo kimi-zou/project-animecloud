@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -31,7 +31,7 @@ const Navigation = ({ isLoaded }) => {
   return (
     <div className="nav">
       <NavLink className="nav__logo" exact to="/">
-        <img className="nav__logo-icon" src={logo} />
+        <img className="nav__logo-icon" src={logo} alt="AnimeCloud Logo"/>
         <div className="nav__logo-text"><span>AnimeCloud</span></div>
       </NavLink>
       {isLoaded && sessionLinks}

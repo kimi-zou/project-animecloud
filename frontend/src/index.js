@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Internal dependencies
 import './index.css';
 import App from './App';
+import { ModalProvider } from "./context/Modal";
 import configureStore from "./store";
 import { restoreCSRF, fetch } from "./store/csrf";
 import * as sessionActions from './store/session';
@@ -27,19 +28,19 @@ if (process.env.NODE_ENV !== "production") {
 // Root Component 
 const Root = () => {
   return (
-    <Provider store = {store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ModalProvider>
+      <Provider store = {store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ModalProvider>
   )
 };
 
 //-----------------------------------------------
 // Render virtual DOM
 ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
+  <Root />,
   document.getElementById('root')
 );

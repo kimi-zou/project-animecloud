@@ -1,23 +1,19 @@
 // External dependencies
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // Internal dependencies
 import * as sessionActions from '../../store/session';
-import './LoginForm.css';
+import "./LoginForm.css";
 
 //--------------------- Component ------------------------
-const LoginFormPage = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
 
   // States
-  const sessionUser = useSelector(state => state.session.user);
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-
-  if (sessionUser) return (<Redirect to="/" />);
 
   // Handler: submit
   const handleSubmit = (e) => {
@@ -31,29 +27,33 @@ const LoginFormPage = () => {
 
   // Virtual DOM
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>{errors.map((error, idx) => <li key={idx}>{error}</li>)}</ul>
-      <label>
-        Username or Email
+    <>
+      <form onSubmit={handleSubmit} className="login__form">
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} className="login__error"><i className="fas fa-exclamation-circle"></i>{error}</li>
+          ))}
+        </ul>
         <input
           type="text"
+          placeholder="Username / Email"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
+          className="login__input"
           required
         />
-      </label>
-      <label>
-        Password
         <input
           type="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="login__input"
           required
         />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+        <button type="submit" className="login__submit">Log In</button>
+      </form>
+    </>
   );
 }
 
-export default LoginFormPage;
+export default LoginForm;

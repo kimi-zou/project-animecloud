@@ -1,22 +1,23 @@
 // External dependencies
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 // Internal dependencies
-import './Home.css';
+import LoginFormModal from '../LoginFormModal';
 import logo from "../../assets/logo/cloud.png";
+import './Home.css';
 
 //--------------------- Component ------------------------
 const HomeNavigation = () => {
   return (
     <div className="home-nav">
-      <NavLink className="home-nav__logo" exact to="/">
-        <img className="logo__icon" src={logo} />
+      <NavLink exact to="/" className="home-nav__logo">
+        <img className="logo__icon" src={logo} alt="AnimeCloud Logo"/>
         <div className="logo__text"><span>AnimeCloud</span></div>
       </NavLink>
       <div className="home-nav__auth">
-        <NavLink className="auth__buttons auth__login " to="/login">Log In</NavLink>
-        <NavLink className="auth__buttons auth__signup" to="/signup">Sign Up</NavLink>
+        <LoginFormModal />
+        <NavLink to="/signup" className="auth__buttons auth__signup">Sign Up</NavLink>
       </div>
     </div>
   )

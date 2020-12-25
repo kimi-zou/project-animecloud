@@ -25,3 +25,7 @@ ul {
 h1 {
   font-size: 32px;
 }
+
+button {
+  border-style: none;
+}
