@@ -29,3 +29,11 @@ h1 {
 button {
   border-style: none;
 }
+
+button:focus {
+  outline: none;
+}
+
+input:focus {
+  outline-color: rgb(161, 161, 161);
+}

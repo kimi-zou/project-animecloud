@@ -9,7 +9,7 @@ import logo from "../../assets/logo/cloud.png";
 import "../Home/AuthForm.css";
 
 //--------------------- Component ------------------------
-const SignupFormPage = () => {
+const SignupFormPage = ({ setShowModal }) => {
   const dispatch = useDispatch();
 
   // State
@@ -28,6 +28,7 @@ const SignupFormPage = () => {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, username, password }))
+        .then((res) => setShowModal(false))
         .catch(res => {
           if (res.data && res.data.errors) setErrors(res.data.errors);
         });
@@ -40,8 +41,8 @@ const SignupFormPage = () => {
     <>
       <form onSubmit={handleSubmit} className="auth__form"> 
         <div className="auth__logo">
-          <img className="logo__icon" src={logo} alt="AnimeCloud Logo"/>
-          <div className="logo__text"><span>AnimeCloud</span></div>
+          <img className="auth-logo__icon" src={logo} alt="AnimeCloud Logo"/>
+          <div className="auth-logo__text"><span>AnimeCloud</span></div>
         </div>
         <ul>
           {errors.map((error, idx) => (

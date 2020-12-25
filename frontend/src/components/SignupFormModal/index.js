@@ -17,7 +17,7 @@ const SignupFormModal = () => {
       }} className="auth__buttons auth__signup">Sign Up</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <SignupForm />
+          <SignupForm setShowModal={setShowModal}/>
         </Modal>
       )}
     </>
