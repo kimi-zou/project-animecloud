@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 
 // Internal dependencies
 import * as sessionActions from '../../store/session';
-import "./LoginForm.css";
+import logo from "../../assets/logo/cloud.png";
+import "../Home/AuthForm.css";
 
 //--------------------- Component ------------------------
 const LoginForm = () => {
@@ -28,18 +29,22 @@ const LoginForm = () => {
   // Virtual DOM
   return (
     <>
-      <form onSubmit={handleSubmit} className="login__form">
+      <form onSubmit={handleSubmit} className="auth__form">
+        <div className="auth__logo">
+          <img className="logo__icon" src={logo} alt="AnimeCloud Logo"/>
+          <div className="logo__text"><span>AnimeCloud</span></div>
+        </div>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx} className="login__error"><i className="fas fa-exclamation-circle"></i>{error}</li>
+            <li key={idx} className="auth__error"><i className="fas fa-exclamation-circle"></i>{error}</li>
           ))}
         </ul>
         <input
           type="text"
-          placeholder="Username / Email"
+          placeholder="Username/Email"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
-          className="login__input"
+          className="auth__input"
           required
         />
         <input
@@ -47,10 +52,10 @@ const LoginForm = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="login__input"
+          className="auth__input"
           required
         />
-        <button type="submit" className="login__submit">Log In</button>
+        <button type="submit" className="auth__submit">Log In</button>
       </form>
     </>
   );

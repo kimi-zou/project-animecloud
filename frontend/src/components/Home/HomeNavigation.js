@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 // Internal dependencies
 import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from "../SignupFormModal";
 import logo from "../../assets/logo/cloud.png";
 import './Home.css';
 
@@ -17,7 +18,7 @@ const HomeNavigation = () => {
       </NavLink>
       <div className="home-nav__auth">
         <LoginFormModal />
-        <NavLink to="/signup" className="auth__buttons auth__signup">Sign Up</NavLink>
+        <SignupFormModal />
       </div>
     </div>
   )

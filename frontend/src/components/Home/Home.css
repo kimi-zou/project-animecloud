@@ -77,7 +77,7 @@
   position: relative;
   z-index: -10;
   width: 1240px;
-  height: 580px;
+  height: 90vh;
 }
 
 .nav__image {
@@ -97,13 +97,14 @@
 
 .carousel-indicators {
   position: absolute;
-  bottom: 150px;
+  bottom: 35vh;
 }
 
 /* -------------------  Hero caption  ------------- */
 .nav__hero-captions {
   position: absolute;
-  bottom: 212px;
+  bottom: 40vh;
+  z-index: 0;
 }
 
 .nav__hero-captions h3 {

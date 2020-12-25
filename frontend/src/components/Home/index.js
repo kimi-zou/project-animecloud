@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="home__container">
       <HomeNavigation />
-      <Carousel>
+      <Carousel pause={false}>
         <Carousel.Item className="nav__hero-images" interval={4000}>
           <img
             className="d-block w-100 nav__image"

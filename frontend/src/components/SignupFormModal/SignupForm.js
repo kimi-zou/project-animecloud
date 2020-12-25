@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Internal dependencies
 import * as sessionActions from "../../store/session";
-import './SignupForm.css';
+import logo from "../../assets/logo/cloud.png";
+import "../Home/AuthForm.css";
 
 //--------------------- Component ------------------------
 const SignupFormPage = () => {
@@ -36,48 +37,54 @@ const SignupFormPage = () => {
 
   // Virtual DOM
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Email
+    <>
+      <form onSubmit={handleSubmit} className="auth__form"> 
+        <div className="auth__logo">
+          <img className="logo__icon" src={logo} alt="AnimeCloud Logo"/>
+          <div className="logo__text"><span>AnimeCloud</span></div>
+        </div>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx} className="auth__error">
+              <i className="fas fa-exclamation-circle"></i>
+              {error}
+            </li>))}
+        </ul>
         <input
           type="text"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="auth__input"
           required
         />
-      </label>
-      <label>
-        Username
         <input
           type="text"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          className="auth__input"
           required
         />
-      </label>
-      <label>
-        Password
         <input
           type="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="auth__input"
           required
         />
-      </label>
-      <label>
-        Confirm Password
         <input
           type="password"
+          placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          className="auth__input"
           required
         />
-      </label>
-      <button type="submit">Sign Up</button>
-    </form>
+        <button type="submit" className="auth__submit">Sign Up</button>
+      </form>
+    </>
   );
 }
 

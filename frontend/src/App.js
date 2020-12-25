@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Internal dependencies
 import * as sessionActions from "./store/session";
-import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 
@@ -32,9 +31,6 @@ function App() {
       <Switch>
         <Route path="/">
           <Home />
-        </Route>
-        <Route path="/signup">
-          <SignupFormPage />
         </Route>
       </Switch>
     </>
