@@ -1,6 +1,9 @@
 /* TODO Add site wide styles */
 body {
-  font: 12px/1.4 overpass, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+  box-sizing: border-box;
+  font-family: overpass, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
   color: #333;
   background-color: #f2f2f2;
   padding-bottom: 75px;
@@ -8,6 +11,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #333;
 }
 
 a:hover {

@@ -1,6 +1,7 @@
 // External dependencies
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 // Internal dependencies
 import * as sessionActions from '../../store/session';
@@ -10,6 +11,7 @@ import "../Home/AuthForm.css";
 //--------------------- Component ------------------------
 const LoginForm = ({ setShowModal }) => {
   const dispatch = useDispatch();
+  let history = useHistory();
 
   // States
   const [credential, setCredential] = useState('');
@@ -21,7 +23,10 @@ const LoginForm = ({ setShowModal }) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
-      .then((res) => setShowModal(false))
+      .then((res) => {
+        setShowModal(false);
+        history.push("/discover");
+      })
       .catch((res) => {
         if (res.data && res.data.errors) setErrors(res.data.errors);
       });

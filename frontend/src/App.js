@@ -30,7 +30,16 @@ function App() {
       {sessionUser && <Navigation isLoaded={isLoaded}/>}
       <Switch>
         <Route path="/">
-          <Home />
+          {!sessionUser && <Home />}
+        </Route>
+        <Route exact path="/discover">
+          <h1>From discover</h1>
+        </Route>
+        <Route exact path="/profile">
+          <h1>Profile</h1>
+        </Route>
+        <Route exact path="/settings">
+          <h1>Settings</h1>
         </Route>
       </Switch>
     </>

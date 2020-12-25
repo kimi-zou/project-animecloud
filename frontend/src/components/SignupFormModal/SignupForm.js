@@ -1,6 +1,6 @@
 // External dependencies
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Internal dependencies
@@ -11,6 +11,7 @@ import "../Home/AuthForm.css";
 //--------------------- Component ------------------------
 const SignupFormPage = ({ setShowModal }) => {
   const dispatch = useDispatch();
+  let history = useHistory();
 
   // State
   const sessionUser = useSelector((state) => state.session.user);
@@ -28,7 +29,10 @@ const SignupFormPage = ({ setShowModal }) => {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, username, password }))
-        .then((res) => setShowModal(false))
+        .then((res) => {
+          setShowModal(false);
+          history.push("/discover");
+        })
         .catch(res => {
           if (res.data && res.data.errors) setErrors(res.data.errors);
         });

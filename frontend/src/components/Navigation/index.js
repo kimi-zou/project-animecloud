@@ -1,5 +1,5 @@
 // External dependencies
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -13,29 +13,47 @@ const Navigation = ({ isLoaded }) => {
 
   // State
   const sessionUser = useSelector(state => state.session.user);
+  const [searchKeyword, setSearchKeyword] = useState('');
 
-  // Base on state, render different components
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (<ProfileButton user={sessionUser} />);
-  } else {
-    sessionLinks = (
-      <div className="nav__auth">
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </div>
-    );
+  // Handler: submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
   }
-  
+
   // Virtual DOM
   return (
-    <div className="nav">
-      <NavLink className="nav__logo" exact to="/">
-        <img className="nav__logo-icon" src={logo} alt="AnimeCloud Logo"/>
-        <div className="nav__logo-text"><span>AnimeCloud</span></div>
-      </NavLink>
-      {isLoaded && sessionLinks}
-    </div>
+    <header className="header">
+      <div className="nav">
+        <div className="nav-left">
+          <NavLink className="nav-logo" exact to="/discover">
+            <img className="nav-logo__icon" src={logo} alt="AnimeCloud Logo"/>
+          </NavLink>
+          <NavLink className="nav-menu__discover" exact to="/discover">
+            Discover
+          </NavLink>
+          <div className="nav-search">
+            <form className="nav-search__form" onSubmit={handleSubmit}>
+              <input 
+                className="nav-search__input" 
+                placeholder="Search"
+                type="search"
+                name="search"
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                value={searchKeyword}
+              />
+              <button className="nav-search__submit" type="submit">
+                <i className="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div className="nav-right">
+          <div className="nav-upload">Upload</div>
+          {isLoaded && <ProfileButton user={sessionUser} />}
+        </div>
+      </div>
+    </header>
+   
   );
 }
 
