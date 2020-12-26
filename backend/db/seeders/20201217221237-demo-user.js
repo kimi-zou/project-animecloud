@@ -8,11 +8,14 @@ module.exports = {
     return queryInterface.bulkInsert('Users', [
       { 
         username: "Demo-lition", 
+        displayName: "Demo",
         email: "demo@user.io",
         hashedPassword: bcrypt.hashSync('password'),
+        avatarImg: "https://images.pexels.com/photos/1716861/pexels-photo-1716861.jpeg?cs=srgb&dl=pexels-carolina-castilla-arias-1716861.jpg&fm=jpg",
+        headerImg: "https://images.pexels.com/photos/310452/pexels-photo-310452.jpeg?cs=srgb&dl=pexels-dom-j-310452.jpg&fm=jpg"
       },
       { 
-        username: "FakeUser1", 
+        username: "FakeUser1",
         email: faker.internet.email(),
         hashedPassword: bcrypt.hashSync(faker.internet.password()),
       },

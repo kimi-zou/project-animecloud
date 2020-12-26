@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
+    displayName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [0, 50],
+      }
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,6 +39,20 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       },
     }, 
+    avatarImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [0, 256],
+      }
+    },
+    headerImg: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [0, 256],
+      }
+    },
   }, {
     defaultScope: {
       attributes: {
@@ -54,8 +75,8 @@ module.exports = (sequelize, DataTypes) => {
   //--------------   Methods ---------------
   // 1. Return user object that's safe to save to a JWT
   User.prototype.toSafeObject = function () { // No arrow function
-    const { id, username, email } = this;
-    return { id, username, email };
+    const { id, username, displayName, email, avatarImg, headerImg  } = this;
+    return { id, username, displayName, email, avatarImg, headerImg  };
   };
 
   // 2. Verify password

@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.STRING(30),
         unique: true,
       },
+      displayName: {
+        allowNull: true,
+        type: Sequelize.STRING(50),
+      },
       email: {
         allowNull: false,
         type: Sequelize.STRING(256),
@@ -21,6 +25,14 @@ module.exports = {
       hashedPassword: {
         allowNull: false,
         type: Sequelize.STRING.BINARY
+      },
+      avatarImg: {
+        allowNull: true,
+        type: Sequelize.STRING(256),
+      },
+      headerImg: {
+        allowNull: true,
+        type: Sequelize.STRING(256),
       },
       createdAt: {
         allowNull: false,
