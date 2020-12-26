@@ -1,23 +1,30 @@
+import React, { useState } from "react";
+
+import TrackChooser from "./TrackChooser";
+import TrackForm from "./TrackForm";
 import "./UploadTrack.css";
 
 //--------------------- Component ------------------------
 const UploadTrack = () => {
+  // States
+  const [files, setFiles] = useState();
+  const [displayForm, setDisplayForm] = useState(false);
+
+  // Handler
+  const handleChange = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setDisplayForm(true);
+    setFiles(file);
+  }
+
+  // Component
   return (
-    <div className="upload__outer-container">
-      <div className="upload__inner-container">
-        <h1 className="upload__heading">Upload your track here</h1>
-        <div className="upload__file-chooser">
-          <label className="file-choose__input">
-            choose files to upload
-            <input 
-              type="file" 
-              accept=".wav,.flac,.aiff,.alac,.ogg,.mp3,.mp2,.aac,.amr,.wma,.m4a" 
-            />
-          </label>
-        </div>
-        <p className="upload__note">Recommend to upload lossless format: WAV, FLAC, AIFF, or ALAC</p>
-      </div>
-    </div>
+    <>
+      {(!displayForm) && <TrackChooser handleChange={handleChange}/>}
+      {(displayForm) && <TrackForm setDisplayForm={setDisplayForm} files={files}/>}
+    </>
+    
   )
 }
 

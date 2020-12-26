@@ -6,6 +6,8 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { ValidationError } = require('sequelize');
+const multer = require('multer');
+const uuid = require('uuid').v4;
 
 // Internal dependencies
 const { environment } = require('./config');
@@ -18,6 +20,7 @@ const app = express();
 
 //-------------------- Middlewards -------------------------
 // Express Middlewares
+app.use(express.static("../frontend/build"));
 app.use(morgan('dev')); // Log req, res info
 app.use(cookieParser()); // Parse cookies
 app.use(express.json()); // Parse req's JSON body

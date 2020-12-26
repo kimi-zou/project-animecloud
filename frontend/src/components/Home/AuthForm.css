@@ -44,13 +44,11 @@
 
 .fas {
   padding-right: 8px;
-}
+} 
 
 /*------------ Input --------------*/
 .auth__input {
   height: 40px;
-  line-height: 1.462;
-  font-size: 12px;
   color: #333;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -61,7 +59,7 @@
   border-radius: 5px;
 }
 
-::placeholder {
+.auth__input::placeholder {
   color: #ccc
 }
 
