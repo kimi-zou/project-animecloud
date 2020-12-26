@@ -48,12 +48,11 @@ const Navigation = ({ isLoaded }) => {
           </div>
         </div>
         <div className="nav-right">
-          <div className="nav-upload">Upload</div>
+          <NavLink className="nav-upload" exact to="/upload">Upload</NavLink>
           {isLoaded && <ProfileButton user={sessionUser} />}
         </div>
       </div>
     </header>
-   
   );
 }
 

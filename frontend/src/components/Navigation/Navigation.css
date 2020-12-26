@@ -9,7 +9,8 @@
 }
 
 .nav {
-  width: 1240px;
+  width: calc(100% - 126px);
+  height: 100%;
   margin: 0 auto;
   font-weight: 100;
   display: flex;

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
+import UploadTrack from "./components/UploadTrack";
 
 //--------------------- Component ------------------------
 // Render order: component -> useEffect -> component 
@@ -29,7 +30,7 @@ function App() {
     <>
       {sessionUser && <Navigation isLoaded={isLoaded}/>}
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           {!sessionUser && <Home />}
         </Route>
         <Route exact path="/discover">
@@ -40,6 +41,12 @@ function App() {
         </Route>
         <Route exact path="/settings">
           <h1>Settings</h1>
+        </Route>
+        <Route exact path="/upload">
+          <UploadTrack />
+        </Route>
+        <Route>
+          <h1>Page Not Found</h1>
         </Route>
       </Switch>
     </>
