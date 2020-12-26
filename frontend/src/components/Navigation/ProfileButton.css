@@ -3,11 +3,29 @@
   margin-left: 15px;
 }
 
+.nav-user__avatar {
+  display: inline-block;
+  position: relative;
+  width: 27px;
+  height: 27px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-left: 18px;
+  margin-right: 5px;
+}
+
+.nav-user__avatar img {
+  width: auto;
+  height: 100%;
+}
+
 .nav-user__user {
   height: 46px;
   background-color: #333;
   color: #ccc;
   font-weight: 300;
+  display: flex;
+  align-items: center;
 }
 
 .nav-user__user:hover {

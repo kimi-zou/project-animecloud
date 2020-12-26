@@ -49,7 +49,9 @@ const ProfileButton = ({ user }) => {
   return (
     <div className="nav-user">
       <button onClick={openMenu} className="nav-user__user">
-        <i className="fas fa-user-circle" />
+        <div className="nav-user__avatar">
+          <img src={user.avatarImg} alt="User Avatar"/>
+        </div>
         {user.username}
       </button>
       {showMenu && (

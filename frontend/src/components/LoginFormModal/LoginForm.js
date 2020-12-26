@@ -9,7 +9,7 @@ import logo from "../../assets/logo/cloud.png";
 import "../Home/AuthForm.css";
 
 //--------------------- Component ------------------------
-const LoginForm = ({ setShowModal }) => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -24,7 +24,6 @@ const LoginForm = ({ setShowModal }) => {
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .then((res) => {
-        setShowModal(false);
         history.push("/discover");
       })
       .catch((res) => {

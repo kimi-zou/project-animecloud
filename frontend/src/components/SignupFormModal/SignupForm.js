@@ -30,7 +30,6 @@ const SignupFormPage = ({ setShowModal }) => {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, username, password }))
         .then((res) => {
-          setShowModal(false);
           history.push("/discover");
         })
         .catch(res => {
