@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Internal dependencies
 import * as sessionActions from "./store/session";
+import * as trackActions from "./store/tracks";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import UploadTrack from "./components/UploadTrack";
@@ -24,10 +25,15 @@ function App() {
     userurl = sessionUser.username.toLowerCase();
   }
 
-  // Hook: useEffect
+  // When page first load, restore user
+  // Get all tracks belong to that user
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()) 
-    .then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()); 
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(trackActions.getTracks())
+      .then(() => setIsLoaded(true)); 
   }, [dispatch]);
 
 

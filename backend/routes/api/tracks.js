@@ -7,12 +7,13 @@ const asyncHandler = require("express-async-handler");
 
 const { requireAuth } = require("../../utils/auth");
 const { Track } = require("../../db/models");
+// require("../../../frontend/public/uploads")
 
 //-------------- Save file to folder ----------------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (file.fieldname === "trackFile") cb(null, "uploads/tracks");
-    if (file.fieldname === "trackCover") cb(null, "uploads/covers");
+    if (file.fieldname === "trackFile") cb(null, "../frontend/public/uploads/tracks");
+    if (file.fieldname === "trackCover") cb(null, "../frontend/public/uploads/covers");
   },
   filename: (req, file, cb) => {
     // const { originalname } = file;
@@ -29,7 +30,6 @@ const storage = multer.diskStorage({
       req.body.coverImg = filePath;
       cb(null, filePath);
     }
-    // cb(null, `${uuid()}-${originalname}`);
   }
 })
 const upload = multer({ 
@@ -46,9 +46,7 @@ const trackUpload = upload.fields([
 // 1. Create Track
 router.post("/create", requireAuth, trackUpload, asyncHandler(async(req, res, next) => {
   const { trackTitle, trackDescription, trackPath, coverImg } = req.body;
-  // console.log(trackPath);
-  // console.log(coverImg);
-
+  
   const track = Track.build({
     title: trackTitle,
     description: trackDescription,

@@ -14,7 +14,6 @@ const setTracks = (tracks) => ({
 // 1. Get all tracks
 export const getTracks = () => async dispatch => {
   const res = await fetch("/api/tracks");
-  // console.log(res.data);
   dispatch(setTracks(res.data.tracks));
   return res;
 }

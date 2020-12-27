@@ -35,7 +35,7 @@ const TrackForm = ({ setDisplayForm, trackData }) => {
       body: data,
     });
 
-    // console.log(res.json());
+    console.log(res.json());
   }
 
   // Preview cover image
