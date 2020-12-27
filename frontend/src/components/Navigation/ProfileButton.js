@@ -1,6 +1,6 @@
 // External dependencies
 import React, { useState, useEffect }  from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from "react-router-dom";
 
 // Internal dependencies
@@ -8,12 +8,19 @@ import * as sessionActions from '../../store/session';
 import "./ProfileButton.css";
 
 //--------------------- Component ------------------------
-const ProfileButton = ({ user }) => {
+const ProfileButton = () => {
+
   const dispatch = useDispatch();
   let history = useHistory();
 
   // State
+  const user = useSelector(state => state.session.user);
   const [showMenu, setShowMenu] = useState(false);
+
+  let userurl = "";
+  if(user) {
+    userurl = user.username.toLowerCase();
+  }
 
   // Hook: useEffect
   useEffect(() => {
@@ -57,7 +64,7 @@ const ProfileButton = ({ user }) => {
       {showMenu && (
         <ul className="nav-user__dropdown">
           <li>
-            <NavLink to="/profile" className="dropdown__options">Profile</NavLink>
+            <NavLink to={`/${userurl}/profile`} className="dropdown__options">Profile</NavLink>
           </li>
           <li>
             <NavLink to="/settings" className="dropdown__options">Settings</NavLink>

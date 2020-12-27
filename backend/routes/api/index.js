@@ -7,6 +7,7 @@ const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth")
 const { User } = require("../../db/models");
 const sessionRouter = require("./session");
 const userRouter = require("./users");
+const trackRouter = require("./tracks");
 
 //-------------- Testing routes ----------------
 // API test route: server setup
@@ -38,5 +39,6 @@ router.get("/require-auth", requireAuth, (req, res) => {
 //-------------- API routes ----------------
 router.use("/session", sessionRouter);
 router.use("/users", userRouter);
+router.use("/tracks", trackRouter);
 
 module.exports = router;

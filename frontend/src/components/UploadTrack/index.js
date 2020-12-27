@@ -7,7 +7,7 @@ import "./UploadTrack.css";
 //--------------------- Component ------------------------
 const UploadTrack = () => {
   // States
-  const [files, setFiles] = useState();
+  const [trackData, setTrackData] = useState();
   const [displayForm, setDisplayForm] = useState(false);
 
   // Handler
@@ -15,14 +15,14 @@ const UploadTrack = () => {
     e.preventDefault();
     const file = e.target.files[0];
     setDisplayForm(true);
-    setFiles(file);
+    setTrackData(file);
   }
 
   // Component
   return (
     <>
       {(!displayForm) && <TrackChooser handleChange={handleChange}/>}
-      {(displayForm) && <TrackForm setDisplayForm={setDisplayForm} files={files}/>}
+      {(displayForm) && <TrackForm setDisplayForm={setDisplayForm} trackData={trackData} />}
     </>
     
   )

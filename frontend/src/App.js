@@ -8,6 +8,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import UploadTrack from "./components/UploadTrack";
+import Profile from "./components/Profile";
 
 //--------------------- Component ------------------------
 // Render order: component -> useEffect -> component 
@@ -17,6 +18,11 @@ function App() {
   // State
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector(state => state.session.user); // Render different Navbar
+
+  let userurl = "";
+  if(sessionUser) {
+    userurl = sessionUser.username.toLowerCase();
+  }
 
   // Hook: useEffect
   useEffect(() => {
@@ -36,8 +42,8 @@ function App() {
         <Route exact path="/discover">
           <h1>From discover</h1>
         </Route>
-        <Route exact path="/profile">
-          <h1>Profile</h1>
+        <Route exact path={`/${userurl}/profile`}>
+          {sessionUser && <Profile />}
         </Route>
         <Route exact path="/settings">
           <h1>Settings</h1>

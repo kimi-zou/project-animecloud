@@ -1,26 +1,77 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 
-const TrackForm = ({ setDisplayForm, files }) => {
+//-----------------------------------------------------
+const TrackForm = ({ setDisplayForm, trackData }) => {
+  // Remove extension from track name
+  const name = trackData.name.replace(/\.[^/.]+$/, "");
+
   // State
-  const [title, setTitle] = useState(files.name);
+  const [title, setTitle] = useState(name);
+  const [description, setDescription] = useState("");
+  const [cover, setCover] = useState();
 
-  // Handlers
-  const handleSubmit = () => {}
+  // Handlers -----------------------------------------
+  // Submit form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Component
+    const data = new FormData();
+
+    data.append("trackFile", trackData);
+    data.append("trackTitle", title);
+    data.append("trackDescription", description);
+    data.append("trackCover", cover);
+
+    for (let pair of data.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+    } // Debug
+
+    const res = await fetch("/api/tracks/create", {
+      method: "POST",
+      headers: {
+        'XSRF-Token': Cookies.get('XSRF-TOKEN')
+      },
+      body: data,
+    });
+
+    console.log(res.json());
+  }
+
+  // Preview cover image
+  const readUrl = (input) => {
+    console.log(input)
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('cover-preview').src = e.target.result;
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // Component -----------------------------------------
   return (
     <div className="upload__outer-container form__outer-container">
       <div className="upload__inner-container form__container">
         <div className="form__heading">Track info</div>
-        <form onSubmit={handleSubmit} className="form" id="track-form">
+        <form 
+          id="track-form"
+          className="form" 
+          onSubmit={handleSubmit} 
+        >
           <div className="form__cover">
-            <div className="cover__display"></div>
+            <div className="cover__display">
+              {cover && <img id="cover-preview" alt="cover-preview"/>}
+            </div>
             <label className="cover-choose__input">
               <i className="fas fa-camera"></i>
               Upload image
               <input 
+                name="cover"
                 type="file" 
                 accept=".png,.jpg,.jpeg"
+                onChange={(e) => {readUrl(e.target); setCover(e.target.files[0])}}
               />
             </label>
           </div>
@@ -41,6 +92,8 @@ const TrackForm = ({ setDisplayForm, files }) => {
               <textarea 
                 className="info__textarea info__input" 
                 placeholder="Describe your track"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
           </div>

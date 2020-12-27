@@ -1,0 +1,98 @@
+.profile__outer-container {
+  position: absolute;
+  top: 46px;
+  min-height: calc(100% - 46px);
+  width: calc(100% - 126px);
+  margin: 0 63px;
+  background-color: #fff;
+}
+
+.profile__inner-container {
+  width: 100%;
+  background-color: white;
+}
+
+/* ------------    Header     ------------------ */
+.profile__header {
+  height: 260px;
+  background-image: linear-gradient(135deg,#846170,#70929c);
+  padding: 30px;
+  display: flex;
+}
+
+/* Avatar */
+.profile-header__avatar {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.profile-header__avatar-img {
+  width: auto;
+  height: 100%;
+}
+
+/* Name */
+.profile-header__user-display-name {
+  font-size: 24px;
+  line-height: 37px;
+  padding: 4px 7px;
+  background-color: rgba(0,0,0,.8);
+  color: #fff;
+  font-weight: 300;
+}
+
+/* Follow button */
+.profile-header__follow {
+  cursor: pointer;
+  background-color: #f50;
+  border-color: #f50;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 4px 7px;
+}
+
+/* ------------    Meta     ------------------ */
+.profile__meta {
+  margin: 0 30px;
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.meta__menu {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.meta__info {
+  width: 300px;
+  height: 44px;
+  display: flex;
+  justify-content: space-around;
+  color: #999;
+}
+
+.meta__info-container {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #f2f2f2;
+  padding-left: 20px; 
+}
+
+.meta__info-label {
+  line-height: .9;
+  padding: 5px 0 3px;
+  font-size: 12px;
+}
+
+.meta__info-value {
+  font-size: 20px;
+  line-height: 1.2;
+}

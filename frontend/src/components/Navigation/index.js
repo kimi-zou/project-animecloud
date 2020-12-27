@@ -1,7 +1,7 @@
 // External dependencies
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 // Internal dependencies
 import ProfileButton from './ProfileButton';
@@ -12,7 +12,7 @@ import logo from "../../assets/logo/cloud.png";
 const Navigation = ({ isLoaded }) => {
 
   // State
-  const sessionUser = useSelector(state => state.session.user);
+  // const sessionUser = useSelector(state => state.session.user);
   const [searchKeyword, setSearchKeyword] = useState('');
 
   // Handler: submit
@@ -49,7 +49,7 @@ const Navigation = ({ isLoaded }) => {
         </div>
         <div className="nav-right">
           <NavLink className="nav-upload" exact to="/upload">Upload</NavLink>
-          {isLoaded && <ProfileButton user={sessionUser} />}
+          {isLoaded && <ProfileButton />}
         </div>
       </div>
     </header>
