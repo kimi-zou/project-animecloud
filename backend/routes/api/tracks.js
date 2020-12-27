@@ -46,8 +46,8 @@ const trackUpload = upload.fields([
 // 1. Create Track
 router.post("/create", requireAuth, trackUpload, asyncHandler(async(req, res, next) => {
   const { trackTitle, trackDescription, trackPath, coverImg } = req.body;
-  console.log(trackPath);
-  console.log(coverImg);
+  // console.log(trackPath);
+  // console.log(coverImg);
 
   const track = Track.build({
     title: trackTitle,

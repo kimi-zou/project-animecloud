@@ -23,9 +23,9 @@ const TrackForm = ({ setDisplayForm, trackData }) => {
     data.append("trackDescription", description);
     data.append("trackCover", cover);
 
-    for (let pair of data.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
-    } // Debug
+    // for (let pair of data.entries()) {
+    //   console.log(pair[0]+ ', ' + pair[1]); 
+    // } // Debug
 
     const res = await fetch("/api/tracks/create", {
       method: "POST",
@@ -35,12 +35,12 @@ const TrackForm = ({ setDisplayForm, trackData }) => {
       body: data,
     });
 
-    console.log(res.json());
+    // console.log(res.json());
   }
 
   // Preview cover image
   const readUrl = (input) => {
-    console.log(input)
+    // console.log(input)
     if (input.files && input.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
