@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
+
+import * as trackActions from "../../store/tracks";
 
 //-----------------------------------------------------
-const TrackForm = ({ setDisplayForm, trackData }) => {
+const TrackForm = ({ setDisplayForm, trackData, user }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // Remove extension from track name
   const name = trackData.name.replace(/\.[^/.]+$/, "");
 
@@ -35,12 +42,13 @@ const TrackForm = ({ setDisplayForm, trackData }) => {
       body: data,
     });
 
-    console.log(res.json());
+    if (res.ok) dispatch(trackActions.getTracks());
+
+    history.push(`/${user.username}/profile`);
   }
 
   // Preview cover image
   const readUrl = (input) => {
-    // console.log(input)
     if (input.files && input.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {

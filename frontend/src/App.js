@@ -29,14 +29,15 @@ function App() {
   // When page first load, restore user
   // Get all tracks belong to that user
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()); 
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(trackActions.getTracks())
+    dispatch(sessionActions.restoreUser())
       .then(() => setIsLoaded(true)); 
   }, [dispatch]);
 
+  useEffect(() => {
+    if(sessionUser) {
+      dispatch(trackActions.getTracks())
+    }
+  }, [sessionUser]);
 
   // Virtual DOM
   return isLoaded && (
@@ -57,7 +58,7 @@ function App() {
           <h1>Settings</h1>
         </Route>
         <Route exact path="/upload">
-          <UploadTrack />
+          <UploadTrack user={sessionUser}/>
         </Route>
         <Route>
           <h1>Page Not Found</h1>

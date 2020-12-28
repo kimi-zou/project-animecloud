@@ -5,7 +5,7 @@ import TrackForm from "./TrackForm";
 import "./UploadTrack.css";
 
 //--------------------- Component ------------------------
-const UploadTrack = () => {
+const UploadTrack = ({ user }) => {
   // States
   const [trackData, setTrackData] = useState();
   const [displayForm, setDisplayForm] = useState(false);
@@ -22,7 +22,7 @@ const UploadTrack = () => {
   return (
     <>
       {(!displayForm) && <TrackChooser handleChange={handleChange}/>}
-      {(displayForm) && <TrackForm setDisplayForm={setDisplayForm} trackData={trackData} />}
+      {(displayForm) && <TrackForm setDisplayForm={setDisplayForm} trackData={trackData} user={user} />}
     </>
     
   )

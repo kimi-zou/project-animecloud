@@ -27,8 +27,6 @@ const ProfileTracks = ({ user, track, index }) => {
   }, [index]);
 
   useEffect(()=>{
-
-    console.log(typeof playProgress);
     if(wave) wave.play();
     if(wave && !play) wave.pause();
   }, [play])

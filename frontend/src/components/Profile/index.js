@@ -18,7 +18,7 @@ const Profile = () => {
       <div className="profile__inner-container">
         <ProfileHeader user={user}/>
         <ProfileMeta user={user}/>
-        {tracks.map((track, index) => { 
+        {tracks && tracks.map((track, index) => { 
           return <ProfileTracks track={track} user={user} key={track.trackPath} index={index}/>
         })}
       </div>
