@@ -16,7 +16,7 @@ const ProfileTracks = ({ user, track, index }) => {
       container: `#waveform-${index}`,
       waveColor: '#999',
       progressColor: '#f50',
-      barHeight: "35",
+      barHeight: "1",
       barWidth: "3",
       height: "110",
       backend: "MediaElementWebAudio"

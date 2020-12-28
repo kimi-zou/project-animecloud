@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import UploadTrack from "./components/UploadTrack";
 import Profile from "./components/Profile";
+import MusicPlayer from "./components/MusicPlayer";
 
 //--------------------- Component ------------------------
 // Render order: component -> useEffect -> component 
@@ -41,6 +42,7 @@ function App() {
   return isLoaded && (
     <>
       {sessionUser && <Navigation isLoaded={isLoaded}/>}
+      {sessionUser && <MusicPlayer />}
       <Switch>
         <Route exact path="/">
           {!sessionUser && <Home />}
