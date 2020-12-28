@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Internal dependencies
 import * as sessionActions from "./store/session";
 import * as trackActions from "./store/tracks";
+import * as playerActions from "./store/player";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import UploadTrack from "./components/UploadTrack";
@@ -19,8 +20,10 @@ function App() {
 
   // State
   const [isLoaded, setIsLoaded] = useState(false);
-  const sessionUser = useSelector(state => state.session.user); // Render different Navbar
+  const [audioContext, setAudioContext] = useState();
+  const sessionUser = useSelector(state => state.session.user); 
 
+  // Dynamic display url
   let userurl = "";
   if(sessionUser) {
     userurl = sessionUser.username.toLowerCase();
@@ -30,20 +33,21 @@ function App() {
   // Get all tracks belong to that user
   useEffect(() => {
     dispatch(sessionActions.restoreUser())
+      .then((res) => {
+        if(res) {
+          dispatch(trackActions.getTracks())
+            .then((res) => dispatch(playerActions.setDefaultPlaylist(res)))
+            .then(() => setAudioContext(new AudioContext()))
+        }
+      })
       .then(() => setIsLoaded(true)); 
   }, [dispatch]);
-
-  useEffect(() => {
-    if(sessionUser) {
-      dispatch(trackActions.getTracks())
-    }
-  }, [sessionUser]);
 
   // Virtual DOM
   return isLoaded && (
     <>
       {sessionUser && <Navigation isLoaded={isLoaded}/>}
-      {sessionUser && <MusicPlayer />}
+      {sessionUser && <MusicPlayer audioContext={audioContext}/>}
       <Switch>
         <Route exact path="/">
           {!sessionUser && <Home />}

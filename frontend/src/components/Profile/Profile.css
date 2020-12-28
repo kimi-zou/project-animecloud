@@ -5,6 +5,7 @@
   width: calc(100% - 126px);
   margin: 0 63px;
   background-color: #fff;
+  padding-bottom: 100px;
 }
 
 .profile__inner-container {

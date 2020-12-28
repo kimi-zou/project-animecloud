@@ -1,7 +1,7 @@
 .home__container {
   position: relative;
   width: 1240px;
-  height: 580px;
+  height: calc(100vh - 100px);
   margin: 0 auto;
 }
 
@@ -75,16 +75,15 @@
 }
 /* -------------  Hero img  ------------- */
 .nav__hero-images {
-  position: relative;
   z-index: -10;
   width: 1240px;
-  height: 90vh;
+  height: 100vh;
 }
 
 .nav__image {
-  position: absolute;
-  bottom: 0px;
-  overflow:hidden;
+  /* position: absolute; */
+  /* bottom: 0px; */
+  overflow: hidden;
 }
 
 .nav__image-2 {

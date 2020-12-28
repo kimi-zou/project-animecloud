@@ -1,5 +1,8 @@
 import { fetch } from "./csrf";
 
+//---------------- State -------------------
+const initialState = { tracks: null };
+
 // Action Types:
 const SET_TRACKS = "tracks/setTracks";
 
@@ -16,11 +19,8 @@ export const getTracks = () => async dispatch => {
   const res = await fetch("/api/tracks");
   console.log(res);
   dispatch(setTracks(res.data.tracks));
-  return res;
+  return res.data.tracks;
 }
-
-//---------------- State -------------------
-const initialState = { tracks: null };
 
 //---------------- Reducer -------------------
 const trackReducer = (state = initialState, action) => {
