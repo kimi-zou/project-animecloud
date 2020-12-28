@@ -162,7 +162,11 @@
   width: 100%;
   height: 110px;
   margin-top: 15px;
-  background-color: #70929c;
+  /* background-color: #70929c; */
+}
+
+#waveform {
+  height: 100%;
 }
 
 /* Player Bottom */
