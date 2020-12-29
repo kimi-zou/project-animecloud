@@ -44,19 +44,24 @@ router.post("/", validateSignup, asyncHandler(async(req, res) => {
 
 // 2. Get popular artists
 router.get("/list/popular", asyncHandler(async(req, res, next) => {
-  // const users = await User.findAll({
-  //   include: Track,
-  //   order: [[User.associations.Track, ]],
-  //   limit: 5
+  // const ids = await Track.findAll({
+  //   attributes: [
+  //     [sequelize.fn('COUNT', sequelize.col('userId')), "count"],
+  //   ],
+  //   order: [["count", "DESC"]]
   // })
-  const ids = await Track.findAll({
-    attributes: [
-      [sequelize.fn('COUNT', sequelize.col('userId')), "count"],
-    ],
-    order: [["count", "DESC"]]
-  })
-  console.log(ids);
-  res.json({ ids });
+
+  // const data = await User.findAll({
+  //   attributes: ["User.*", [sequelize.fn("COUNT", "Track.id"), "trackCount"]],
+  //   include: [{ model: Track, require: true} ],
+  //   group: ["User.id", "Track.id"]
+  // })
+
+  const data = await sequelize.query('SELECT "Users".id, COUNT("Tracks".id) FROM "Users" JOIN "Tracks" on "Users".id = "Tracks"."userId" GROUP BY "Users".id ORDER BY COUNT DESC LIMIT 5' );
+
+  // console.log(ids);
+
+  res.json( data[0] );
 }))
 
 module.exports = router;
