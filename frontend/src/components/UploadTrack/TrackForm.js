@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
-import * as trackActions from "../../store/tracks";
+import * as trackActions from "../../store/track";
 import * as playerActions from "../../store/player";
 
 //-----------------------------------------------------

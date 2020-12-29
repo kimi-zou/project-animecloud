@@ -6,7 +6,8 @@ const { check } = require("express-validator");
 
 // Internal dependencies
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { sequelize } = require("../../db/models");
+const { User, Track } = require("../../db/models");
 const { handleValidationErrors } = require("../../utils/validation");
 
 //-------------- Middlewares ----------------
@@ -31,7 +32,7 @@ const validateSignup = [
 ]
 
 //-------------- Routes ----------------
-// Sign up
+// 1. Sign up
 router.post("/", validateSignup, asyncHandler(async(req, res) => {
   const { email, password, username } = req.body;
   const user = await User.signup({ email, password, username });
@@ -40,5 +41,22 @@ router.post("/", validateSignup, asyncHandler(async(req, res) => {
 
   return res.json({ user });
 }));
+
+// 2. Get popular artists
+router.get("/list/popular", asyncHandler(async(req, res, next) => {
+  // const users = await User.findAll({
+  //   include: Track,
+  //   order: [[User.associations.Track, ]],
+  //   limit: 5
+  // })
+  const ids = await Track.findAll({
+    attributes: [
+      [sequelize.fn('COUNT', sequelize.col('userId')), "count"],
+    ],
+    order: [["count", "DESC"]]
+  })
+  console.log(ids);
+  res.json({ ids });
+}))
 
 module.exports = router;

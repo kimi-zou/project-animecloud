@@ -4,15 +4,17 @@ import thunk from 'redux-thunk';
 
 // Internal dependencies
 import sessionReducer from "./session";
-import trackReducer from "./tracks";
+import trackReducer from "./track";
 import playerReducer from "./player";
+import userReducer from "./user";
 
 //----------------------------------------------
 // Rootreducer
 const rootReducer = combineReducers({
   session: sessionReducer,
   track: trackReducer,
-  player: playerReducer
+  player: playerReducer,
+  user: userReducer,
 });
 
 // Store Enhancer

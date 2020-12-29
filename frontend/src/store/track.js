@@ -4,7 +4,7 @@ import { fetch } from "./csrf";
 const initialState = { tracks: null };
 
 // Action Types:
-const SET_TRACKS = "tracks/setTracks";
+const SET_TRACKS = "track/SET_TRACKS";
 
 //---------------- POJO Actions -------------------
 // 1. Set tracks

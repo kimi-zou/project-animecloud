@@ -5,7 +5,7 @@ const uuid = require("uuid").v4;
 const router = express.Router();
 const asyncHandler = require("express-async-handler");
 
-const { trackMulterUpload, s3Upload } = require("../../awsS3-anime");
+const { trackMulterUpload, s3Upload } = require("../../awsS3");
 const { requireAuth } = require("../../utils/auth");
 const { Track } = require("../../db/models");
 
