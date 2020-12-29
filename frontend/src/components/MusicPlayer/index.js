@@ -167,11 +167,11 @@ const MusicPlayer = ({ user}) => {
       </div>
       <div className="player__track-info-session">
         <div className="track-info__cover">
-          {tracks && tracks[currentSong].coverImg && <img className="track-info__cover-img" src={`/uploads/covers/${tracks[currentSong].coverImg}`} alt="test"/> }
+          {tracks.length > 0 && <img className="track-info__cover-img" src={`/uploads/covers/${tracks[currentSong].coverImg}`} alt="test"/> }
         </div>
         <div className="track-info__name">
           <div className="track-info__name-user">{user.displayName}</div>
-          <div className="track-info__name-track">{tracks && tracks[currentSong].title}</div>
+          <div className="track-info__name-track">{tracks.length > 0 && tracks[currentSong].title}</div>
         </div>
       </div>
     </div>
