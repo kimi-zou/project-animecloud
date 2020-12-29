@@ -127,7 +127,7 @@ const MusicPlayer = ({ user}) => {
           ref={audio} 
           type="audio/mpeg" 
           preload="true"
-          src={songs && `/uploads/tracks/${songs[currentSong].trackPath}`} 
+          src={songs && songs.length > 0 && `/uploads/tracks/${songs[currentSong].trackPath}`} 
         />
       <div className="player__controls-session">
         <div className="controls__previous controls" onClick={prevSong}>
