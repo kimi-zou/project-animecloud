@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import WaveSurfer from 'wavesurfer.js';
+// import { useEffect, useState, useRef } from 'react';
+// import WaveSurfer from 'wavesurfer.js';
 
 import * as playerActions from "../../store/player";
 import "./Profile.css"; 
@@ -9,39 +9,14 @@ import "./Profile.css";
 const ProfileTracks = ({ user, track, index }) => {
   const dispatch = useDispatch();
 
+  //----------------    States    -------------------
   // Global states
   const playerState = useSelector(state => state.player); 
   const playing = playerState.playing;
   const audio = playerState.audioState;
   const currentPlayingSong = playerState.currentSong;
-  // States
-  const [trackCover, setTrackCover] = useState();
-  // const [ wave, setWave ] = useState();
-  // const [ play, setPlay ] = useState(false);
-  // const [ playProgress, setPlayProgress ] = useState();
-
-  // Player waveform
-  // useEffect(() => { 
-  //   const wavesurfer = WaveSurfer.create({
-  //     container: `#waveform-${index}`,
-  //     waveColor: '#999',
-  //     progressColor: '#f50',
-  //     barHeight: "1",
-  //     barWidth: "3",
-  //     height: "110",
-  //     backend: "MediaElementWebAudio"
-  //   });
-
-  //   setWave(wavesurfer);
-    
-  // }, [index]);
-
-  // useEffect(()=>{
-  //   if(wave) wave.play();
-  //   if(wave && !play) wave.pause();
-  // }, [play])
   
-  //---------------- Helper functions -------------------
+  //----------------    Helper functions    -------------------
   // 1. Calculate track release time
   const calTime = () => {
     const currentTime = Date.now();
@@ -64,32 +39,15 @@ const ProfileTracks = ({ user, track, index }) => {
       if (!playing) dispatch(playerActions.togglePlaying(playerState));
     }
   }
-  // Handle play
-  // const clickPlay = () => {
-  //   setPlay(true);
-  // }
 
-  // const clickPause = () => {
 
-  //   setPlayProgress(wave.getCurrentTime()/wave.getDuration());
-  //   setPlay(false);
-  // }
-
-  // if(wave) wave.load(`/uploads/tracks/${track.trackPath}`); 
-
-  //---------------- Event Listeners -------------------
-  // useEffect(() => {
-  //   console.log(audio.current.paused);
-  //   if (playing) audio.current.play()
-  //   if (!playing) audio.current.pause();
-  // }, [currentPlayingSong])
-
+  //---------------- Component -------------------
   return (
     <div className="profile-track">
       <div className="profile-track__cover">
         {track.coverImg && 
           <img className="profile-track__cover-img" 
-          src={`/uploads/covers/${track.coverImg}`} 
+          src={`${track.coverImg}`} 
           alt="test"/>
         }
       </div>

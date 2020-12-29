@@ -5,6 +5,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
 const { ValidationError } = require('sequelize');
 
 // Internal dependencies
@@ -22,7 +23,8 @@ const app = express();
 app.use(express.static("./uploads"));
 app.use(morgan('dev')); // Log req, res info
 app.use(cookieParser()); // Parse cookies
-app.use(express.json()); // Parse req's JSON body
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // Parse req's JSON body
 
 // Express Security Middlewares
 if (!isProduction) app.use(cors()); // Allow CORS when develop

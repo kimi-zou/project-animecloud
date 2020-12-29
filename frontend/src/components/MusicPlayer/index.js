@@ -127,7 +127,7 @@ const MusicPlayer = ({ user}) => {
           ref={audio} 
           type="audio/mpeg" 
           preload="true"
-          src={songs && songs.length > 0 && `/uploads/tracks/${songs[currentSong].trackPath}`} 
+          src={songs && songs.length > 0 && `${songs[currentSong].trackPath}`} 
         />
       <div className="player__controls-session">
         <div className="controls__previous controls" onClick={prevSong}>
@@ -167,7 +167,7 @@ const MusicPlayer = ({ user}) => {
       </div>
       <div className="player__track-info-session">
         <div className="track-info__cover">
-          {tracks && tracks.length > 0 && <img className="track-info__cover-img" src={`/uploads/covers/${tracks[currentSong].coverImg}`} alt="test"/> }
+          {tracks && tracks.length > 0 && <img className="track-info__cover-img" src={`${tracks[currentSong].coverImg}`} alt="test"/> }
         </div>
         <div className="track-info__name">
           <div className="track-info__name-user">{user.displayName}</div>
