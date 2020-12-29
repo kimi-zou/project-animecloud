@@ -108,10 +108,13 @@
 
 /* Cover  */
 .profile-track__cover {
+  display: flex;
+  justify-content: center;
   width: 200px;
   height: 200px;
   overflow: hidden;
   margin-right: 30px;
+  background-image: linear-gradient(135deg,#846170,#70929c);
 }
 
 .profile-track__cover-img {

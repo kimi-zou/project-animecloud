@@ -5,15 +5,16 @@ const initialState = {
   repeat: false,
   random: false,
   playing: false,
-  // audio: null
+  audioState: null
 };
 
 // Action Types:
 const SET_DEFAULT_PLAYLIST = "SET_DEFAULT_PLAYLIST";
-const SET_CURRENT_SONG = 'SET_CURRENT_SONG';
-const TOGGLE_RANDOM = 'TOGGLE_RANDOM';
-const TOGGLE_REPEAT = 'TOGGLE_OPTIONS';
-const TOGGLE_PLAYING = 'TOGGLE_PLAYING';
+const SET_CURRENT_SONG = "SET_CURRENT_SONG";
+const TOGGLE_RANDOM = "TOGGLE_RANDOM";
+const TOGGLE_REPEAT = "TOGGLE_OPTIONS";
+const TOGGLE_PLAYING = "TOGGLE_PLAYING";
+const SET_AUDIO = "SET_AUDIO";
 
 // POJO actions:
 // 0. Set default playlist songs
@@ -46,6 +47,11 @@ export const togglePlaying = (state) => ({
   payload: state.playing ? false : true 
 });
 
+// 5. Save audio state
+export const setAudio = (audio) => ({
+  type: SET_AUDIO,
+  payload: audio
+})
 
 //---------------- Reducer -------------------
 const playerReducer = (state = initialState, action) => {
@@ -74,6 +80,11 @@ const playerReducer = (state = initialState, action) => {
       return {
         ...state,
         playing: action.payload
+      }
+    case SET_AUDIO:
+      return {
+        ...state,
+        audioState: action.payload
       }
     default:
       return state

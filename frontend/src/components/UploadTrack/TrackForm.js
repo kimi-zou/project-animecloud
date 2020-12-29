@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
 import * as trackActions from "../../store/tracks";
+import * as playerActions from "../../store/player";
 
 //-----------------------------------------------------
 const TrackForm = ({ setDisplayForm, trackData, user }) => {
@@ -42,7 +43,10 @@ const TrackForm = ({ setDisplayForm, trackData, user }) => {
       body: data,
     });
 
-    if (res.ok) dispatch(trackActions.getTracks());
+    if (res.ok) {
+      dispatch(trackActions.getTracks())
+        .then((res) => dispatch(playerActions.setDefaultPlaylist(res)));
+    }
 
     history.push(`/${user.username}/profile`);
   }

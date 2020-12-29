@@ -12,7 +12,8 @@
 
 .player__controls-session,
 .player__progress-session,
-.player__volume-session {
+.player__volume-session,
+.player__track-info-session {
   display: flex;
   height: 100%;
   align-items: center;
@@ -121,4 +122,32 @@
 
 #volbar:focus::-webkit-slider-runnable-track {
   background:  #666;
+}
+
+/* Info section  ------------------*/
+.player__track-info-session {
+  margin-left: 30px;
+}
+
+.track-info__cover {
+  display: flex;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  margin-right: 10px;
+  background-image: linear-gradient(135deg,#846170,#70929c);
+}
+
+.track-info__cover-img {
+  height: 100%;
+  width: auto;
+}
+
+.track-info__name-user {
+  color: #999;
+}
+
+.track-info__name-track {
+  color: #666;
 }

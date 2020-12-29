@@ -20,8 +20,8 @@ function App() {
 
   // State
   const [isLoaded, setIsLoaded] = useState(false);
-  const [audioContext, setAudioContext] = useState();
   const sessionUser = useSelector(state => state.session.user); 
+  const tracks = useSelector(state => state.track.tracks);
 
   // Dynamic display url
   let userurl = "";
@@ -33,21 +33,19 @@ function App() {
   // Get all tracks belong to that user
   useEffect(() => {
     dispatch(sessionActions.restoreUser())
-      .then((res) => {
-        if(res) {
-          dispatch(trackActions.getTracks())
-            .then((res) => dispatch(playerActions.setDefaultPlaylist(res)))
-            .then(() => setAudioContext(new AudioContext()))
-        }
-      })
-      .then(() => setIsLoaded(true)); 
+    setIsLoaded(true); 
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(trackActions.getTracks())
+    dispatch(playerActions.setDefaultPlaylist(tracks))
+  }, [sessionUser])
 
   // Virtual DOM
   return isLoaded && (
     <>
       {sessionUser && <Navigation isLoaded={isLoaded}/>}
-      {sessionUser && <MusicPlayer audioContext={audioContext}/>}
+      {sessionUser && <MusicPlayer user={sessionUser} />}
       <Switch>
         <Route exact path="/">
           {!sessionUser && <Home />}

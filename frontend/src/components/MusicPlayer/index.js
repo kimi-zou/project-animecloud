@@ -5,20 +5,23 @@ import * as playerActions from "../../store/player";
 import "./MusicPlayer.css";
 
 //-------------------------------------------------
-const MusicPlayer = ({ audioContext }) => {
+const MusicPlayer = ({ user}) => {
   const dispatch = useDispatch();
 
   // Audio Ref
   const audio = useRef("audio_tag");
   
+    //---------------- States -------------------
   // Global states
   const playerState = useSelector(state => state.player); 
-
+  const songs = playerState.songs;
+  const currentSong = playerState.currentSong;
+  const tracks = useSelector(state => state.track.tracks);
   // States 
   const [currentTime, setCurrentTime] = useState(0);
   const [stateVol, setStateVol] = useState(0.3);
   const [dur, setDur] = useState(0);
-
+  const [globalAudio, setGlobalAudio] = useState(audio);
   // cssStates
   const [activeRandom, setActiveRandom] = useState("");
   const [activeRepeat, setActiveRepeat] = useState("");
@@ -26,12 +29,12 @@ const MusicPlayer = ({ audioContext }) => {
   //---------------- Helper functions -------------------
   // 1. Play prev song
   const prevSong = () => {
-    if (playerState.songs) {
-      if (playerState.currentSong === 0) {
+    if (songs) {
+      if (currentSong === 0) {
         console.log(audio.current.paused);
-        dispatch(playerActions.setCurrentSong(playerState.songs.length - 1));
+        dispatch(playerActions.setCurrentSong(songs.length - 1));
       } else {
-        dispatch(playerActions.setCurrentSong(playerState.currentSong - 1));
+        dispatch(playerActions.setCurrentSong(currentSong - 1));
       }
     }
   }
@@ -42,11 +45,11 @@ const MusicPlayer = ({ audioContext }) => {
 
   // 3. Play next song
   const nextSong = () => {
-    if (playerState.songs) {
-      if (playerState.currentSong === playerState.songs.length - 1) {
+    if (songs) {
+      if (currentSong === songs.length - 1) {
         dispatch(playerActions.setCurrentSong(0));
       } else {
-        dispatch(playerActions.setCurrentSong(playerState.currentSong + 1));
+        dispatch(playerActions.setCurrentSong(currentSong + 1));
       }
     }
   }
@@ -77,12 +80,12 @@ const MusicPlayer = ({ audioContext }) => {
   // 8. Handle end of song
   const handleEnd = () => {
     if (playerState.random) {
-      let randomIndex = parseInt(Math.random() * playerState.songs.length);
+      let randomIndex = parseInt(Math.random() * songs.length);
       dispatch(playerActions.setCurrentSong(randomIndex));
     }
     if (playerState.repeat) {
       nextSong();
-    } else if (playerState.currentSong === playerState.songs.length - 1) {
+    } else if (currentSong === songs.length - 1) {
       togglePlayingState();
       return;
     } else nextSong();
@@ -109,6 +112,10 @@ const MusicPlayer = ({ audioContext }) => {
     if (!playerState.repeat) setActiveRepeat("");
   }, [playerState.repeat])
 
+  // Update audio
+  useEffect(() => {
+    dispatch(playerActions.setAudio(globalAudio));
+  }, [playerState.audio])
 
   return (
     <div className="player-container">
@@ -120,7 +127,7 @@ const MusicPlayer = ({ audioContext }) => {
           ref={audio} 
           type="audio/mpeg" 
           preload="true"
-          src={playerState.songs && `/uploads/tracks/${playerState.songs[playerState.currentSong].trackPath}`} 
+          src={songs && `/uploads/tracks/${songs[currentSong].trackPath}`} 
         />
       <div className="player__controls-session">
         <div className="controls__previous controls" onClick={prevSong}>
@@ -160,11 +167,11 @@ const MusicPlayer = ({ audioContext }) => {
       </div>
       <div className="player__track-info-session">
         <div className="track-info__cover">
-          {/* <img className="track-info__cover-img" src={`/uploads/covers/${track.coverImg}`} alt="test"/> */}
+          {tracks && tracks[currentSong].coverImg && <img className="track-info__cover-img" src={`/uploads/covers/${tracks[currentSong].coverImg}`} alt="test"/> }
         </div>
         <div className="track-info__name">
-          {/* <div className="track-info__name-user">{user.displayName}</div>
-          <div className="track-info__name-track">{track.title}</div> */}
+          <div className="track-info__name-user">{user.displayName}</div>
+          <div className="track-info__name-track">{tracks && tracks[currentSong].title}</div>
         </div>
       </div>
     </div>
