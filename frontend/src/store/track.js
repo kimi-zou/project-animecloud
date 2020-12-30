@@ -1,34 +1,34 @@
 import { fetch } from "./csrf";
 
 //---------------- State -------------------
-const initialState = { tracks: null };
+const initialState = { currentUserTracks: null };
 
 // Action Types:
-const SET_TRACKS = "track/SET_TRACKS";
+const SET_CURRENT_USER_TRACKS = "track/SET_CURRENT_USER_TRACKS";
 
 //---------------- POJO Actions -------------------
 // 1. Set tracks
-const setTracks = (tracks) => ({
-  type: SET_TRACKS,
+const setCurrentUserTracks = (tracks) => ({
+  type: SET_CURRENT_USER_TRACKS,
   payload: tracks,
 });
 
 //---------------- Thunk Actions -------------------
 // 1. Get all tracks
-export const getTracks = () => async dispatch => {
-  const res = await fetch("/api/tracks");
-  dispatch(setTracks(res.data.tracks));
+export const getTracks = (id) => async dispatch => {
+  const res = await fetch(`/api/tracks/${id}`);
+  dispatch(setCurrentUserTracks(res.data.tracks));
   return res.data.tracks;
 }
 
 //---------------- Reducer -------------------
 const trackReducer = (state = initialState, action) => {
-  let newState;
   switch (action.type) {
-    case SET_TRACKS:
-      newState = Object.assign({}, state);
-      newState.tracks = action.payload;
-      return newState;
+    case SET_CURRENT_USER_TRACKS:
+      return {
+        ...state,
+        currentUserTracks: action.payload
+      };
     default:
       return state;
   }

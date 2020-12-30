@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Internal dependencies
 import * as sessionActions from "./store/session";
-import * as trackActions from "./store/track";
-import * as playerActions from "./store/player";
+
 import * as userActions from "./store/user";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
@@ -19,25 +18,20 @@ import Discover from "./components/Discover";
 // Render order: component -> useEffect -> component 
 function App() {
   const dispatch = useDispatch();
-
   // State
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector(state => state.session.user); 
-  const userUrl= useSelector(state => state.user.userUrl);
-  const tracks = useSelector(state => state.track.tracks);
+  const currentViewUserUrl= useSelector(state => state.user.currentViewUserUrl);
+
 
   // When page first load, restore user
   // Get all tracks belong to that user
   useEffect(() => {
     dispatch(sessionActions.restoreUser())
-      .then((res) => dispatch(userActions.setUserUrl(res)))
+      // .then((res) => dispatch(userActions.setCurrentViewUserUrl(res)))
+      .then(() => dispatch(userActions.getPopularArtists()))
       .then(() => setIsLoaded(true));
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(trackActions.getTracks())
-    dispatch(playerActions.setDefaultPlaylist(tracks))
-  }, [sessionUser])
 
   // Virtual DOM
   return isLoaded && (
@@ -55,7 +49,12 @@ function App() {
         <Route exact path="/discover">
           {sessionUser && <Discover />}
         </Route>
-        <Route exact path={`/${userUrl}/profile`}>
+        {sessionUser && 
+          <Route exact path={`/${sessionUser.username.toLowerCase()}/profile`}>
+            {<Profile />}
+          </Route>
+        }
+        <Route exact path={`/${currentViewUserUrl}`}>
           {sessionUser && <Profile />}
         </Route>
         <Route exact path="/settings">

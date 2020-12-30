@@ -52,7 +52,7 @@ export const signup = (user) => async (dispatch) => {
   });
   dispatch(setUser(response.data.user));
   return response;
-};
+}; 
 
 // 4. Logout
 export const logout = () => async (dispatch) => {

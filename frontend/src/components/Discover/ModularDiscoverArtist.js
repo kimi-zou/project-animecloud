@@ -1,35 +1,53 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import "./Discover.css";
 import * as userActions from "../../store/user";
 
+const ModularDiscoverArtist = ({ artist }) => {
+  let dispatch = useDispatch();
 
-const ModularDiscoverArtist = ({title, description}) => {
-  const dispatch = useDispatch();
-  //---------------- State -------------------
-  // Global
-  const userUrl= useSelector(state => state.user.userUrl);
-  // Local
-  const [showFollow, setShowFollow] = useState(false);
+  // Local State
+  const [showButton, setShowButton] = useState(false);
 
-  dispatch(userActions.getPopularArtists());
 
-  //-------------- Component -----------------
+  //------------------ Helper Functions ---------------
+  // 1. Redirect user to artist page
+  const viewArtist = () => {
+    dispatch(userActions.setCurrentViewUserUrl(artist))
+    dispatch(userActions.setCurrentViewUser(artist))
+  }
+
   return (
     <>
-      <NavLink 
-        to={`/${userUrl}/profile`} 
-        onMouseEnter={() => setShowFollow(true)}
-        onMouseLeave={() => setShowFollow(false)}
+      <div className="discover__artist-container"
+        onMouseEnter={()=>setShowButton(true)}
+        onMouseLeave={()=>setShowButton(false)} 
       >
-        <div className="discover__artist-avatar"></div>
-        <div className="discover__artist-display-name"></div>
-      </NavLink>
-      {showFollow && <button type="button"></button>}
+        <NavLink 
+          to={`/${artist.username.toLowerCase()}`}
+          key={artist.id}
+          className="discover__artist-link"
+          onClick={viewArtist}
+        >
+          <div className="discover__artist-avatar" >
+            <img src={artist.avatarImg} />
+          </div>
+          <div className="discover__artist-display-name">{artist.displayName}</div>
+        </NavLink>
+        <div className="discover__artist-follow-container">
+          { showButton && <button 
+            className="discover__artist-follow" 
+            type="button">
+              <i class="fas fa-user-plus"></i>
+              Follow
+            </button>}
+        </div>
+      </div>  
     </>
   )
 }
 
 export default ModularDiscoverArtist;
+

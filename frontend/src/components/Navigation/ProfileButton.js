@@ -15,7 +15,6 @@ const ProfileButton = () => {
 
   //------------------ States ---------------
   const sessionUser = useSelector(state => state.session.user);
-  const userUrl= useSelector(state => state.user.userUrl);
   const [showMenu, setShowMenu] = useState(false);
 
   //------------------ Helper Functions ---------------
@@ -36,10 +35,13 @@ const ProfileButton = () => {
   };
 
   // 4. Set user url
-  const clickProfile = () => dispatch(userActions.setUserUrl(sessionUser));
+  const clickProfile = () => {
+    dispatch(userActions.setCurrentViewUserUrl(sessionUser));
+    dispatch(userActions.setCurrentViewUser(sessionUser));
+  }
 
   //------------------ Event Listeners ---------------
-   useEffect(() => {
+  useEffect(() => {
     if (!showMenu) return; // If menu is opened, return
     document.addEventListener('click', closeMenu); // Click anywhere else, close menu
     // Clean up: close menu and remove event listener
@@ -58,7 +60,7 @@ const ProfileButton = () => {
       {showMenu && (
         <ul className="nav-user__dropdown">
           <li>
-            <NavLink to={`/${userUrl}/profile`} className="dropdown__options" onClick={clickProfile}>Profile</NavLink>
+            <NavLink to={`/${sessionUser.username.toLowerCase()}/profile`} className="dropdown__options" onClick={clickProfile}>Profile</NavLink>
           </li>
           <li>
             <NavLink to="/settings" className="dropdown__options">Settings</NavLink>

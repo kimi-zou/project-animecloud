@@ -6,7 +6,7 @@ const { check } = require("express-validator");
 
 // Internal dependencies
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { sequelize } = require("../../db/models");
+const { Sequelize, sequelize } = require("../../db/models");
 const { User, Track } = require("../../db/models");
 const { handleValidationErrors } = require("../../utils/validation");
 
@@ -31,6 +31,8 @@ const validateSignup = [
   handleValidationErrors,
 ]
 
+// const getAllTracks = () => {}
+
 //-------------- Routes ----------------
 // 1. Sign up
 router.post("/", validateSignup, asyncHandler(async(req, res) => {
@@ -44,24 +46,27 @@ router.post("/", validateSignup, asyncHandler(async(req, res) => {
 
 // 2. Get popular artists
 router.get("/list/popular", asyncHandler(async(req, res, next) => {
-  // const ids = await Track.findAll({
-  //   attributes: [
-  //     [sequelize.fn('COUNT', sequelize.col('userId')), "count"],
-  //   ],
-  //   order: [["count", "DESC"]]
-  // })
-
-  // const data = await User.findAll({
-  //   attributes: ["User.*", [sequelize.fn("COUNT", "Track.id"), "trackCount"]],
-  //   include: [{ model: Track, require: true} ],
-  //   group: ["User.id", "Track.id"]
-  // })
-
-  const data = await sequelize.query('SELECT "Users".id, COUNT("Tracks".id) FROM "Users" JOIN "Tracks" on "Users".id = "Tracks"."userId" GROUP BY "Users".id ORDER BY COUNT DESC LIMIT 5' );
-
-  // console.log(ids);
-
-  res.json( data[0] );
+  const data = await User.findAll({
+    subQuery: false,
+    attributes: {
+      include: [[Sequelize.fn("COUNT", Sequelize.col("Tracks.id")), "trackcount"]],
+      
+    },
+    include: [{
+      model: Track,
+      attributes: []
+    }],
+    group: ["User.id"],
+    order: [[Sequelize.literal('trackcount'), "DESC"]],
+    limit: 5
+  })
+  const ids = data.map((user) => user.dataValues.id);
+  const tracks = await Track.findAll({
+    where: {
+      userId: ids
+    },
+  })
+  res.json({user: data, tracks: tracks});
 }))
 
 module.exports = router;

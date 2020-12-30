@@ -1,17 +1,27 @@
-// import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 
 import ProfileHeader from "./ProfileHeader";
 import ProfileMeta from "./ProfileMeta";
 import ProfileTracks from "./ProfileTracks";
 import "./Profile.css";
+import * as trackActions from "../../store/track";
+import * as playerActions from "../../store/player";
 
 
 //-----------------------------------------------------
 const Profile = () => {
+  const dispatch = useDispatch();
+
   // State
-  const user = useSelector(state => state.session.user);
-  const tracks = useSelector(state => state.track.tracks);
+  const user = useSelector(state => state.user.currentViewUser); 
+  const tracks = useSelector(state => state.track.currentUserTracks);
+
+  // !!! Needs update
+  useEffect(() => {
+    dispatch(trackActions.getTracks(user.id))
+    dispatch(playerActions.setDefaultPlaylist(tracks))
+  }, [user])
 
   return (
     <div className="profile__outer-container">

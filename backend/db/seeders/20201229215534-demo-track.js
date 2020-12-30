@@ -102,8 +102,8 @@ module.exports = {
           userId: 10,
         },
         {
-          title: "Let the stars fall down",
-          description: "Point Zero",
+          title: "Point Zero",
+          description: "Fate/Zero Soundtrack",
           coverImg: "https://animecloud.s3.amazonaws.com/mock-data/mock-covers/9-c2.jpg",
           trackPath: "https://animecloud.s3.amazonaws.com/mock-data/mock-tracks/9-Point+Zero.m4a",
           userId: 10,
