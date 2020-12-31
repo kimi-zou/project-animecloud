@@ -14,11 +14,13 @@ const PlayerControls = () => {
 
   // States
   const playerState = useSelector(state => state.player); 
+  const currentSong = playerState.currentSong;
   const audio = playerState.audioNode;
   const randomOn = playerState.random;
   const repeatOn = playerState.repeat;
   const [activeRandom, setActiveRandom] = useState(""); // css
   const [activeRepeat, setActiveRepeat] = useState(""); // css
+  const [disabledOn, setDisabledOn] = useState(true);
 
 
   // Helper Functions
@@ -39,19 +41,24 @@ const PlayerControls = () => {
     if (!repeatOn) setActiveRepeat("");
   }, [repeatOn])
 
+  // 3. Enable control buttons
+  useEffect(() => {
+    if(currentSong) setDisabledOn(false);
+  }, [currentSong])
+
   return (
     <div className="player__controls-session">
-      <div className="controls__previous controls" onClick={prevSong}>
+      <button className="controls__previous controls" onClick={prevSong} disabled={disabledOn}>
         <i className="fas fa-step-backward" />
-      </div>
-      <div className="controls__play controls" onClick={() => { togglePlayingState(); toggleAudio(); }}>
+      </button>
+      <button className="controls__play controls" onClick={() => { togglePlayingState(); toggleAudio(); } } disabled={disabledOn}>
         { playerState.playing 
           ? <i className="fas fa-pause" /> 
           : <i className="fas fa-play" />}
-      </div>
-      <div className="controls__next controls" onClick={nextSong}>
+      </button>
+      <button className="controls__next controls" onClick={nextSong} disabled={disabledOn}>
         <i className="fas fa-step-forward" />
-      </div>
+      </button>
       <div className="controls__shuffle controls" onClick={toggleRandomState}>
         <i className={`fas fa-random ${activeRandom}`}></i>
       </div>

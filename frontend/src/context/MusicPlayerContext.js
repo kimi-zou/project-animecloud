@@ -15,6 +15,7 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
   const {  
     currentSong, 
     playlist, 
+    playing,
     repeat, 
     random,
     audioNode
@@ -42,7 +43,7 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
   // 2. Play next song 
   const nextSong = () => {
     if (playlist.length === 0 && currentSong) {
-      replaySong();
+      replaySong(); 
     } else {
       if (currentSong === playlist.length - 1) {
         dispatch(playerActions.setCurrentSong(0));
@@ -94,6 +95,7 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
 
   // 8. Replay song
   const replaySong = () => {
+    if(!playing) dispatch(playerActions.togglePlaying(playerState))
     audioNode.current.currentTime = 0;
     audioNode.current.play();
   }
