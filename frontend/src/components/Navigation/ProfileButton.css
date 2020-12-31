@@ -12,6 +12,8 @@
   border-radius: 50%;
   margin-left: 18px;
   margin-right: 8px;
+  background-image: url("https://cdn3.iconfinder.com/data/icons/the-face-says-it-all/900/emoji-face-emotions-smile-512.png");
+  background-size: 27px;
 }
 
 .nav-user__avatar img {

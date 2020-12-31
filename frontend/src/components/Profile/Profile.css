@@ -31,7 +31,7 @@
   display: flex;
   justify-content: center; 
   align-items: center;
-  background-image: url("https://cdn4.iconfinder.com/data/icons/cute-emojis/100/cute_monsters-05-512.png");
+  background-image: url("https://cdn3.iconfinder.com/data/icons/the-face-says-it-all/900/emoji-face-emotions-smile-512.png");
   background-size: 200px;
 }
 
@@ -141,6 +141,10 @@
 /*------------------ Player Top  -------------*/
 .profile-player__play-icon {
   width: 56px;
+}
+
+.profile-player__play-icon:hover {
+  cursor: pointer;
 }
 
 .profile-player__top {

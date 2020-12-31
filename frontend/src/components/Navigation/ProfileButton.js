@@ -53,7 +53,7 @@ const ProfileButton = () => {
     <div className="nav-user">
       <button onClick={openMenu} className="nav-user__user">
         <div className="nav-user__avatar">
-          <img src={sessionUser.avatarImg} alt="User Avatar"/>
+          {sessionUser.avatarImg && <img src={sessionUser.avatarImg} alt="User Avatar"/>}
         </div>
         {sessionUser.username}
       </button>

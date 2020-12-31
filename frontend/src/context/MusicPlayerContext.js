@@ -17,6 +17,7 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
     playlist, 
     repeat, 
     random,
+    audioNode
   } = useSelector(state => state.player); 
   // 2. Local
   const [currentTime, setCurrentTime] = useState(0);
@@ -27,7 +28,9 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
   //---------------- Helper Functions -------------------
   // 1. Play prev song 
   const prevSong = () => {
-    if (playlist.length > 0) {
+    if (playlist.length === 0 && currentSong) {
+      replaySong();
+    } else {
       if (currentSong === 0) {
         dispatch(playerActions.setCurrentSong(playlist.length - 1));
       } else {
@@ -38,14 +41,15 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
 
   // 2. Play next song 
   const nextSong = () => {
-    if (playlist.length > 0) {
+    if (playlist.length === 0 && currentSong) {
+      replaySong();
+    } else {
       if (currentSong === playlist.length - 1) {
         dispatch(playerActions.setCurrentSong(0));
       } else {
         dispatch(playerActions.setCurrentSong(currentSong + 1));
       }
     }
-    togglePlayingState();
   }
 
   // 3. Toggle playing state: Play/Pause
@@ -65,21 +69,33 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
 
   // 6. Handle end of song 
   const handleEnd = () => {
-    if (random) {
-      let randomIndex = parseInt(Math.random() * playlist.length);
-      dispatch(playerActions.setCurrentSong(randomIndex));
+    if (playlist.length === 0) {
+      if (repeat) {
+        replaySong(); 
+      } else {
+        audioNode.current.currentTime = 0; 
+        togglePlayingState();
+      }
+    } else {
+      if (random) {
+        let randomIndex = parseInt(Math.random() * playlist.length);
+        dispatch(playerActions.setCurrentSong(randomIndex));
+      }
+      if (repeat) {
+        nextSong();
+      } else nextSong();
     }
-    if (repeat) {
-      nextSong();
-    } else if (currentSong === playlist.length - 1) {
-      togglePlayingState();
-      return;
-    } else nextSong();
   }
 
   // 7. Calculate progress bar time
   const fmtMSS = (s) => {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + parseInt(s);
+  }
+
+  // 8. Replay song
+  const replaySong = () => {
+    audioNode.current.currentTime = 0;
+    audioNode.current.play();
   }
   
   //---------------- Render -------------------

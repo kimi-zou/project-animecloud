@@ -29,7 +29,6 @@ const ProfileTracks = ({ user, track, index }) => {
   }
 
   // 2. Set current song
-
   const setSong = () => dispatch(playerActions.setCurrentSong(track));
 
   // 3. Toggle Audio Playing state
