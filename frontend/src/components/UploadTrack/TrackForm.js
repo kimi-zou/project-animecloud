@@ -45,7 +45,6 @@ const TrackForm = ({ setDisplayForm, trackData, user }) => {
 
     if (res.ok) {
       dispatch(trackActions.getTracks())
-        .then((res) => dispatch(playerActions.setDefaultPlaylist(res)));
     }
 
     history.push(`/${user.username}/profile`);

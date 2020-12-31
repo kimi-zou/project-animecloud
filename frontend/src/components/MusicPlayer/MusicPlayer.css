@@ -35,6 +35,10 @@
   padding-left: 12px;
 }
 
+.controls:hover {
+  cursor: pointer;
+}
+
 .controls__random--active,
 .controls__repeat--active {
   color: #FF5500;
@@ -44,6 +48,11 @@
 .player__progress-session {
   margin-left: 40px;
   width: 480px;
+}
+ 
+.progress__current-time,
+.progress__total-time {
+  width: 25px;
 }
 
 #prgbar {

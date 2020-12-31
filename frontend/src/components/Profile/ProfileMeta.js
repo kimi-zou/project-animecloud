@@ -1,4 +1,4 @@
-const ProfileMeta = ({ user }) => {
+const ProfileMeta = ({ user, tracks }) => {
   return (
     <div className="profile__meta">
       <div className="meta__menu">Tracks</div>
@@ -13,10 +13,10 @@ const ProfileMeta = ({ user }) => {
         </div>
         <div className="meta__info-tracks meta__info-container">
           <span className="meta__info-label">Tracks</span>
-          <span className="meta__info-value">1</span>
+          <span className="meta__info-value">{tracks && tracks.length}</span>
         </div>
       </div>
-    </div>
+    </div> 
   )
 }
 

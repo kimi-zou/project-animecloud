@@ -1,32 +1,33 @@
 //---------------- State -------------------
 const initialState = { 
-  currentSong: 0,
-  songs: null,
+  audioNode: null,
+  audioSrc: "",
+  currentSong: null,
+  playlist: [],
   repeat: false,
   random: false,
   playing: false,
-  audioState: null
 };
 
 // Action Types:
-const SET_DEFAULT_PLAYLIST = "SET_DEFAULT_PLAYLIST";
-const SET_CURRENT_SONG = "SET_CURRENT_SONG";
-const TOGGLE_RANDOM = "TOGGLE_RANDOM";
-const TOGGLE_REPEAT = "TOGGLE_OPTIONS";
-const TOGGLE_PLAYING = "TOGGLE_PLAYING";
-const SET_AUDIO = "SET_AUDIO";
+const SET_AUDIO_SRC = "player/SET_AUDIO_SRC"
+const SET_CURRENT_SONG = "player/SET_CURRENT_SONG";
+const TOGGLE_RANDOM = "player/TOGGLE_RANDOM";
+const TOGGLE_REPEAT = "player/TOGGLE_OPTIONS";
+const TOGGLE_PLAYING = "player/TOGGLE_PLAYING";
+const SAVE_AUDIO_NODE = "player/SET_AUDIO";
 
 // POJO actions:
-// 0. Set default playlist songs
-export const setDefaultPlaylist = (songs) => ({
-  type: SET_DEFAULT_PLAYLIST,
-  payload: songs
+// 0. Set audio source
+export const setAudioSrc = (path) => ({
+  type: SET_AUDIO_SRC,
+  payload: path
 })
 
 // 1. Set current song
-export const setCurrentSong = (index) => ({
+export const setCurrentSong = (song) => ({
   type: SET_CURRENT_SONG,
-  payload: index
+  payload: song
 })
 
 // 2. Toggle random state
@@ -47,19 +48,19 @@ export const togglePlaying = (state) => ({
   payload: state.playing ? false : true 
 });
 
-// 5. Save audio state
-export const setAudio = (audio) => ({
-  type: SET_AUDIO,
-  payload: audio
+// 5. Save Audio Node
+export const saveAudioNode = (audioNode) => ({
+  type: SAVE_AUDIO_NODE,
+  payload: audioNode
 })
 
 //---------------- Reducer -------------------
 const playerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_DEFAULT_PLAYLIST:
+    case SET_AUDIO_SRC:
       return {
         ...state,
-        songs: action.payload
+        audioSrc: action.payload
       }
     case SET_CURRENT_SONG:
       return {
@@ -81,10 +82,10 @@ const playerReducer = (state = initialState, action) => {
         ...state,
         playing: action.payload
       }
-    case SET_AUDIO:
+    case SAVE_AUDIO_NODE:
       return {
         ...state,
-        audioState: action.payload
+        audioNode: action.payload
       }
     default:
       return state

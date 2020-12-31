@@ -7,7 +7,7 @@ const asyncHandler = require("express-async-handler");
 
 const { trackMulterUpload, s3Upload } = require("../../awsS3");
 const { requireAuth } = require("../../utils/auth");
-const { Track } = require("../../db/models");
+const { Track, User } = require("../../db/models");
 
 //-------------- Routes ----------------
 // 1. Create Track
@@ -45,6 +45,7 @@ router.get("/:id", requireAuth, asyncHandler(async(req, res, next) => {
 // 3. Get recent released tracks
 router.get("/list/newest", asyncHandler(async(req, res, next) => {
   const tracks = await Track.findAll({
+    include: User,
     order: [["createdAt", "DESC"]],
     limit: 5
   })
