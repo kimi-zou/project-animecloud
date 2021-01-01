@@ -99,7 +99,7 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
     audioNode.current.currentTime = 0;
     audioNode.current.play();
   }
-  
+
   //---------------- Render -------------------
   return (
     <>
@@ -113,7 +113,7 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
           toggleRandomState,
           toggleRepeatState,
           handleEnd,
-          fmtMSS
+          fmtMSS,
         }}
       >
         {children}

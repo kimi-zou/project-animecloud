@@ -2,7 +2,7 @@
 const initialState = { 
   audioNode: null,
   audioSrc: "",
-  currentSong: null,
+  currentSong: {id: -1},
   playlist: [],
   repeat: false,
   random: false,
@@ -53,6 +53,8 @@ export const saveAudioNode = (audioNode) => ({
   type: SAVE_AUDIO_NODE,
   payload: audioNode
 })
+
+// 6. Set 
 
 //---------------- Reducer -------------------
 const playerReducer = (state = initialState, action) => {

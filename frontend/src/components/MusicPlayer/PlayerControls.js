@@ -43,7 +43,7 @@ const PlayerControls = () => {
 
   // 3. Enable control buttons
   useEffect(() => {
-    if(currentSong) setDisabledOn(false);
+    if(currentSong.id > -1) setDisabledOn(false);
   }, [currentSong])
 
   return (

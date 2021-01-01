@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { MusicPlayerContext } from "../../context/MusicPlayerContext";
 import * as playerActions from "../../store/player";
 import "./Profile.css"; 
 
@@ -16,7 +17,14 @@ const ProfileTracks = ({ user, track, index }) => {
   const audio = playerState.audioNode;
   const playing = playerState.playing;
   const currentSong = playerState.currentSong;
+
+  // Context 
+  const { 
+    currentTime,
+    a
+  } = useContext(MusicPlayerContext)
   
+  console.log(a);
   //----------------    Helper functions    -------------------
   // 1. Calculate track release time
   const calTime = () => {
@@ -29,11 +37,21 @@ const ProfileTracks = ({ user, track, index }) => {
   }
 
   // 2. Set current song
-  const setSong = () => dispatch(playerActions.setCurrentSong(track));
-
+  const setSong = () => {
+    if (currentSong.id !== track.id) {
+      dispatch(playerActions.setCurrentSong(track));
+    }
+  }
   // 3. Toggle Audio Playing state
   const toggleAudio = () => {
-    audio.current.paused && !onPlay ? audio.current.play() : audio.current.pause();
+    // audio.current.paused && !onPlay ? audio.current.play() : audio.current.pause();
+    if (audio.current.paused && !onPlay) {
+      audio.current.currentTime = 100;
+      audio.current.play();
+    } else {
+      audio.current.currentTime = 100;
+      audio.current.pause();
+    }
   }
 
   // 4. Update playing state in store

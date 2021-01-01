@@ -19,8 +19,8 @@ const MusicPlayer = ({ user }) => {
   const { setCurrentTime, setDuration, handleEnd } = useContext(MusicPlayerContext) 
 
   // States
-  // const [trackSrc, setTrackSrc] = useState("");
   const playerState = useSelector(state => state.player); 
+  // const [trackSrc, setTrackSrc] = useState("");
   // const audioSrc = playerState.audioSrc;
 
 
@@ -34,6 +34,7 @@ const MusicPlayer = ({ user }) => {
         onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)} // currentTime has been updated
         onCanPlay={(e) => setDuration(e.target.duration)} // The browser can play the media
         onEnded={handleEnd} // When media reacheds the end
+        crossOrigin="anonymous"
 
         ref={audioRef} 
         type="audio/mpeg" 
