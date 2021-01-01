@@ -79,6 +79,15 @@ const ProfileTracks = ({ user, track, index }) => {
       if (playing) setOnPlay(true);
     }
   }, [currentSong])
+  
+  useEffect(() => {
+    if(!currentSong) return;
+    if(currentSong.id === track.id) {
+      if (playing) setOnPlay(true);
+      if (!playing) setOnPlay(false);
+    }
+  }, [playing])
+
 
   useEffect(() => {
     const wavesurfer = WaveSurfer.create({
