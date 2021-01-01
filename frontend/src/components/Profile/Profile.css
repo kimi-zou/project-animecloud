@@ -174,14 +174,11 @@
 
 /*------------------ Player Middle  -------------*/
 .profile-player__middle {
+  position: relative;
   width: 100%;
   height: 110px;
   margin-top: 15px;
   /* background-color: #70929c; */
-}
-
-#waveform {
-  height: 100%;
 }
 
 /*------------------ Player End  -------------*/
