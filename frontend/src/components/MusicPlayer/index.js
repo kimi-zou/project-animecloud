@@ -31,7 +31,11 @@ const MusicPlayer = ({ user }) => {
   return (
     <div className="player-container">
       <audio 
-        onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)} // currentTime has been updated
+        onTimeUpdate={(e) => { // When audio currentTime has been updated, do...
+          setCurrentTime(e.target.currentTime); // Save time to player context
+          dispatch(playerActions.saveAudioTime(e.target.currentTime))
+          }  
+        } 
         onCanPlay={(e) => setDuration(e.target.duration)} // The browser can play the media
         onEnded={handleEnd} // When media reacheds the end
         crossOrigin="anonymous"

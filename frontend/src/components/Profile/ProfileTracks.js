@@ -17,14 +17,13 @@ const ProfileTracks = ({ user, track, index }) => {
   const audio = playerState.audioNode;
   const playing = playerState.playing;
   const currentSong = playerState.currentSong;
+  const audioTime =playerState.audioTime;
 
   // Context 
   const { 
     currentTime,
-    a
   } = useContext(MusicPlayerContext)
   
-  console.log(a);
   //----------------    Helper functions    -------------------
   // 1. Calculate track release time
   const calTime = () => {
@@ -46,10 +45,10 @@ const ProfileTracks = ({ user, track, index }) => {
   const toggleAudio = () => {
     // audio.current.paused && !onPlay ? audio.current.play() : audio.current.pause();
     if (audio.current.paused && !onPlay) {
-      audio.current.currentTime = 100;
+      audio.current.currentTime = audioTime;
       audio.current.play();
     } else {
-      audio.current.currentTime = 100;
+      audio.current.currentTime = audioTime;
       audio.current.pause();
     }
   }
@@ -68,6 +67,8 @@ const ProfileTracks = ({ user, track, index }) => {
   useEffect(() => {
     if (currentSong && currentSong.id !== track.id) {
       setOnPlay(false);
+      audio.current.currentTime = 0;
+      dispatch(playerActions.saveAudioTime(0));
     } else {
       if (!playing) setOnPlay(false);
       if (playing) setOnPlay(true);

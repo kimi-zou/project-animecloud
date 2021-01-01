@@ -2,6 +2,7 @@
 const initialState = { 
   audioNode: null,
   audioSrc: "",
+  audioTime: 0,
   currentSong: {id: -1},
   playlist: [],
   repeat: false,
@@ -16,6 +17,7 @@ const TOGGLE_RANDOM = "player/TOGGLE_RANDOM";
 const TOGGLE_REPEAT = "player/TOGGLE_OPTIONS";
 const TOGGLE_PLAYING = "player/TOGGLE_PLAYING";
 const SAVE_AUDIO_NODE = "player/SET_AUDIO";
+const SAVE_AUDIO_TIME = "player/SET_TIME";
 
 // POJO actions:
 // 0. Set audio source
@@ -54,7 +56,11 @@ export const saveAudioNode = (audioNode) => ({
   payload: audioNode
 })
 
-// 6. Set 
+// 6. Save Audio current time
+export const saveAudioTime = (time) => ({
+  type: SAVE_AUDIO_TIME,
+  payload: time
+})
 
 //---------------- Reducer -------------------
 const playerReducer = (state = initialState, action) => {
@@ -88,6 +94,11 @@ const playerReducer = (state = initialState, action) => {
       return {
         ...state,
         audioNode: action.payload
+      }
+    case SAVE_AUDIO_TIME: 
+      return {
+        ...state,
+        audioTime: action.payload
       }
     default:
       return state
