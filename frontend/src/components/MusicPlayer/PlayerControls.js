@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext";
+import { setCurrentSong } from '../../store/player';
 import "./MusicPlayer.css";
 
 const PlayerControls = () => {
