@@ -11,7 +11,7 @@ const PlayerInfo = () => {
   return (
     <div className="player__track-info-session"> 
       <div className="track-info__cover">
-        {currentSong && <img className="track-info__cover-img" src={currentSong.coverImg} alt="current song cover"/>}
+        {currentSong.id > -1 && <img className="track-info__cover-img" src={currentSong.coverImg} alt="current song cover"/>}
       </div>
       <div className="track-info__name">
         <div className="track-info__name-user">{currentViewUser.displayName}</div>

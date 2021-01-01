@@ -17,11 +17,12 @@ const ProfileTracks = ({ user, track, index }) => {
   const audio = playerState.audioNode;
   const playing = playerState.playing;
   const currentSong = playerState.currentSong;
-  const audioTime =playerState.audioTime;
+  const time = playerState.audioTime;
 
   // Context 
   const { 
     currentTime,
+    setCurrentTime
   } = useContext(MusicPlayerContext)
   
   //----------------    Helper functions    -------------------
@@ -45,10 +46,10 @@ const ProfileTracks = ({ user, track, index }) => {
   const toggleAudio = () => {
     // audio.current.paused && !onPlay ? audio.current.play() : audio.current.pause();
     if (audio.current.paused && !onPlay) {
-      audio.current.currentTime = audioTime;
+      audio.current.currentTime = time;
       audio.current.play();
     } else {
-      audio.current.currentTime = audioTime;
+      audio.current.currentTime = time;
       audio.current.pause();
     }
   }
@@ -66,6 +67,7 @@ const ProfileTracks = ({ user, track, index }) => {
   //----------------    Event Listeners   -------------------
   useEffect(() => {
     if (currentSong && currentSong.id !== track.id) {
+      audio.current.currentTime = 0;
       setOnPlay(false);
       audio.current.currentTime = 0;
       dispatch(playerActions.saveAudioTime(0));
@@ -73,7 +75,7 @@ const ProfileTracks = ({ user, track, index }) => {
       if (!playing) setOnPlay(false);
       if (playing) setOnPlay(true);
     }
-  }, [currentSong, playing])
+  }, [currentSong])
 
   //---------------- Component -------------------
   return (
