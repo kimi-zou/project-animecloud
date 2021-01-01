@@ -1,5 +1,6 @@
 //---------------- State -------------------
 const initialState = { 
+  waveform: null,
   audioNode: null,
   audioTime: 0,
   audioSrc: "",
@@ -19,6 +20,7 @@ const TOGGLE_REPEAT = "player/TOGGLE_OPTIONS";
 const TOGGLE_PLAYING = "player/TOGGLE_PLAYING";
 const SAVE_AUDIO_NODE = "player/SAVE_AUDIO";
 const SAVE_AUDIO_TIME = "player/SAVE_AUDIO_TIME";
+const SAVE_WAVEFORM = "player/SAVE_WAVEFORM";
 
 // POJO actions:
 // 0. Set audio source
@@ -63,6 +65,12 @@ export const saveAudioTime = (time) => ({
   payload: time
 })
 
+// 7. Save waveform element
+export const saveWaveform = (waveform) => ({
+  type: SAVE_WAVEFORM,
+  payload: waveform
+})
+
 //---------------- Reducer -------------------
 const playerReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -100,6 +108,11 @@ const playerReducer = (state = initialState, action) => {
       return {
         ...state,
         audioTime: action.payload
+      }
+    case SAVE_WAVEFORM: 
+      return {
+        ...state,
+        waveform: action.payload
       }
     default:
       return state

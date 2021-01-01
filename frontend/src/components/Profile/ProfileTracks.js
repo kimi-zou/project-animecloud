@@ -24,8 +24,7 @@ const ProfileTracks = ({ user, track, index }) => {
 
   // Context 
   const { 
-    currentTime,
-    setCurrentTime
+    setCurrentTime,
   } = useContext(MusicPlayerContext)
   
   //----------------    Helper functions    -------------------
@@ -45,6 +44,7 @@ const ProfileTracks = ({ user, track, index }) => {
       dispatch(playerActions.setCurrentSong(track));
     }
   }
+
   // 3. Toggle Audio Playing state
   const toggleAudio = () => {
     // audio.current.paused && !onPlay ? audio.current.play() : audio.current.pause();
@@ -59,8 +59,14 @@ const ProfileTracks = ({ user, track, index }) => {
 
   // 4. Update playing state in store
   const togglePlayingState = () => {
-    if (playing && onPlay) dispatch(playerActions.togglePlaying(playerState));
-      if (!playing && !onPlay) dispatch(playerActions.togglePlaying(playerState));
+    if (playing && onPlay) {
+      dispatch(playerActions.togglePlaying(playerState));
+      if (wave) wave.pause();
+    };
+      if (!playing && !onPlay) {
+        dispatch(playerActions.togglePlaying(playerState));
+        if(wave) wave.play();
+      }
   }
 
   // 5. Toggle button according to state
@@ -69,25 +75,35 @@ const ProfileTracks = ({ user, track, index }) => {
 
   //----------------    Event Listeners   -------------------
   useEffect(() => {
+    if (!currentSong) return;
     if (currentSong && currentSong.id !== track.id) {
-      audio.current.currentTime = 0;
       setOnPlay(false);
-      audio.current.currentTime = 0;
+      if(wave) wave.stop();
+      if(audio.current) audio.current.currentTime = 0;
       dispatch(playerActions.saveAudioTime(0));
     } else {
-      if (!playing) setOnPlay(false);
-      if (playing) setOnPlay(true);
+      if (!playing) {
+        if (wave) wave.pause();
+        setOnPlay(false);
+      } else {
+        if(wave) wave.play();
+        setOnPlay(true);
+      }
     }
   }, [currentSong])
   
   useEffect(() => {
     if(!currentSong) return;
     if(currentSong.id === track.id) {
-      if (playing) setOnPlay(true);
-      if (!playing) setOnPlay(false);
+      if (playing) {
+        if(wave) wave.play();
+        setOnPlay(true);
+      } else {
+        if (wave) wave.pause();
+        setOnPlay(false);
+      }
     }
   }, [playing])
-
 
   useEffect(() => {
     const wavesurfer = WaveSurfer.create({
@@ -112,8 +128,9 @@ const ProfileTracks = ({ user, track, index }) => {
     wavesurfer.on("seek", (position) => {
       const currentTime = position * wavesurfer.getDuration();
       setCurrentTime(currentTime);
-      audio.current.currentTime = currentTime;
+      if(audio.current) audio.current.currentTime = currentTime;
     }) 
+    dispatch(playerActions.saveWaveform(wave));
     setWave(wavesurfer);
     return () => { 
       const waveContainer = document.getElementById(`waveform-${user.id}-${index}`);

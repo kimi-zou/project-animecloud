@@ -18,13 +18,12 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
     playing,
     repeat, 
     random,
-    audioNode
+    audioNode,
   } = useSelector(state => state.player); 
   // 2. Local
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.3);
-
 
   //---------------- Helper Functions -------------------
   // 1. Play prev song 
