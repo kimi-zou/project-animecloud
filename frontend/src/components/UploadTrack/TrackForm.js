@@ -18,12 +18,13 @@ const TrackForm = ({ setDisplayForm, trackData, user }) => {
   const [title, setTitle] = useState(name);
   const [description, setDescription] = useState("");
   const [cover, setCover] = useState();
+  const [disableSave, setDisableSave] = useState(false);
 
   // Handlers -----------------------------------------
   // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setDisableSave(true)
     const data = new FormData();
 
     data.append("trackFile", trackData);
@@ -115,7 +116,7 @@ const TrackForm = ({ setDisplayForm, trackData, user }) => {
           </div>
           <div className="form__buttons">
             <button type="button" className="form__button-cancel form__buttons" onClick={() => setDisplayForm(false)}>Cancel</button>
-            <button type="submit" form="track-form" className="form__button-save form__buttons">Save</button>
+            <button type="submit" form="track-form" className="form__button-save form__buttons" disabled={disableSave}>Save</button>
           </div>
         </div>
       </div>

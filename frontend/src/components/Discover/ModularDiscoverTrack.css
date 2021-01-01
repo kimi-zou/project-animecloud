@@ -21,6 +21,7 @@
 
 .discover__track-cover img:hover {
   cursor: pointer;
+  opacity: 0.35;
 }
 
 .discover__track-title {
@@ -39,4 +40,10 @@
 .discover__track-play-container {
   position: absolute;
   z-index: 10;
+  background-color: none;
+}
+
+.discover__track-play {
+  background-color: transparent;
+  color: #333;
 }

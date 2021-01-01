@@ -24,7 +24,7 @@ const ProfileTracks = ({ user, track, index }) => {
 
   // Context 
   const { 
-    setCurrentTime,
+    setCurrentTime, currentTime, duration
   } = useContext(MusicPlayerContext)
   
   //----------------    Helper functions    -------------------
