@@ -4,7 +4,6 @@ const initialState = {
   audioNode: null,
   audioTime: 0,
   audioSrc: "",
-  audioTime: 0,
   currentSong: {id: -1},
   playlist: [],
   repeat: false,

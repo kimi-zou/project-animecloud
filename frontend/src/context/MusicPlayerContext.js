@@ -20,12 +20,15 @@ const MusicPlayerContextProvider = ({ children }) => {
     random,
     audioNode,
   } = useSelector(state => state.player); 
-  // 2. Local
+  // 2. Local - footer
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.3);
   const [prgVol, setPrgVol] = useState(0.3);
   const [disabledOn, setDisabledOn] = useState(true);
+  // 3. Local - profile
+  const [wave, setWave] = useState();
+  const [onPlay, setOnPlay] = useState(false);
 
   //---------------- Controls -------------------
   // 1. Play prev song 
@@ -164,6 +167,8 @@ const MusicPlayerContextProvider = ({ children }) => {
           duration, setDuration,
           volume, setVolume,
           prgVol, setPrgVol,
+          wave, setWave,
+          onPlay, setOnPlay,
           prevSong, nextSong,
           toggleAudio,
           togglePlayingState,

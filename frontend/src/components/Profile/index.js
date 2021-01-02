@@ -6,7 +6,7 @@ import * as userActions from "../../store/user";
 import MusicPlayerContextProvider from "../../context/MusicPlayerContext";
 import ProfileHeader from "./ProfileHeader";
 import ProfileMeta from "./ProfileMeta";
-import ProfileTracks from "./ProfileTracks";
+import ProfileTracks from "./ProfileTracks/index";
 import "./Profile.css";
 
 
