@@ -49,31 +49,30 @@ function App() {
         </>
       )}
       {!sessionUser && <Route path="/"><Redirect to="/"></Redirect></Route>}
-      <Route exact path="/">
-        {!sessionUser && <Home />}
-      </Route>
-      {sessionUser && 
-        <Switch>
-          <Route exact path="/discover">
-            <Discover />
-          </Route>
-          <Route path="/:username/profile">
-            <Profile />
-          </Route>
-          <Route exact path="/:username">
-            <Profile />
-          </Route>
-          <Route exact path="/settings">
-            <h1>Settings</h1>
-          </Route>
-          <Route exact path="/upload">
-            <UploadTrack user={sessionUser}/>
-          </Route>
-          <Route>
-            <h1>Page Not Found</h1>
-          </Route>
-        </Switch>
-      }
+      <Switch>
+        <Route exact path="/">
+          {!sessionUser && <Home />}
+        </Route>
+        <Route exact path="/discover">
+          <Discover />
+        </Route>
+        <Route exact path="/settings">
+          <div>Settings</div>
+        </Route>
+        <Route exact path="/upload">
+          <UploadTrack user={sessionUser}/>
+        </Route>
+        <Route exact path="/:username/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/users/:username">
+          <Profile />
+        </Route>
+        <Route>
+          <div>Page Not Found</div>
+        </Route>
+      </Switch>
+      
     </>
   );
 }

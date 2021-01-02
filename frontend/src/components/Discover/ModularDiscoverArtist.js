@@ -8,8 +8,6 @@ const ModularDiscoverArtist = ({ artist }) => {
   // Local State
   const [showButton, setShowButton] = useState(false);
 
-  //------------------ Helper Functions ---------------
-  // 1. Redirect user to artist page
   return (
     <>
       <div className="discover__artist-container"
@@ -17,7 +15,7 @@ const ModularDiscoverArtist = ({ artist }) => {
         onMouseLeave={()=>setShowButton(false)} 
       >
         <NavLink 
-          to={`/${artist.username}`}
+          to={`/users/${artist.username}`}
           className="discover__artist-link"
         >
           <div className="discover__artist-avatar" >

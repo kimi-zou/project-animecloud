@@ -14,10 +14,9 @@ import "./Profile.css";
 const Profile = () => {
   const dispatch = useDispatch();
   const { username } = useParams();
- 
+  
   // States
   const user = useSelector(state => state.user.currentViewUser); 
-  const tracks = user.Tracks;
 
   // Set current view user
   useEffect(() => {
@@ -28,8 +27,8 @@ const Profile = () => {
     <div className="profile__outer-container">
       <div className="profile__inner-container">
         <ProfileHeader user={user}/>
-        <ProfileMeta user={user} tracks={tracks}/>
-        {tracks && tracks.map((track, index) => { 
+        <ProfileMeta user={user} tracks={user.Tracks}/>
+        {user && user.Tracks.map((track, index) => { 
         return (<MusicPlayerContextProvider key={index}>
             <ProfileTracks track={track} user={user} key={track.trackPath} index={index}/>
           </MusicPlayerContextProvider>)

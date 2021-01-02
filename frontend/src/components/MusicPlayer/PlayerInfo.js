@@ -14,7 +14,7 @@ const PlayerInfo = () => {
         {currentSong.id > -1 && <img className="track-info__cover-img" src={currentSong.coverImg} alt="current song cover"/>}
       </div>
       <div className="track-info__name">
-        <div className="track-info__name-user">{currentViewUser.displayName}</div>
+        <div className="track-info__name-user">{currentViewUser && currentViewUser.displayName}</div>
         <div className="track-info__name-track">{currentSong && currentSong.title}</div>
       </div>
     </div>
