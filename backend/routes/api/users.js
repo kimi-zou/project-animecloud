@@ -69,4 +69,19 @@ router.get("/list/popular", asyncHandler(async(req, res, next) => {
   res.json({user: data, tracks: tracks});
 }))
 
+// 3. Get user by username along with all the tracks
+router.get("/:username", asyncHandler(async(req, res, next) => {
+  const username = req.params.username;
+  const user = await User.findAll({
+    where: {username: username},
+    include: Track
+  })
+
+  if (user) {
+    return res.json({ user });
+  } else {
+    return res.json({ });
+  }
+}))
+
 module.exports = router;

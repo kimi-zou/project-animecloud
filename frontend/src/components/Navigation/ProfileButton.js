@@ -34,12 +34,6 @@ const ProfileButton = () => {
     history.push("/");
   };
 
-  // 4. Set user url
-  const clickProfile = () => {
-    dispatch(userActions.setCurrentViewUserUrl(sessionUser));
-    dispatch(userActions.setCurrentViewUser(sessionUser));
-  }
-
   //------------------ Event Listeners ---------------
   useEffect(() => {
     if (!showMenu) return; // If menu is opened, return
@@ -60,7 +54,7 @@ const ProfileButton = () => {
       {showMenu && (
         <ul className="nav-user__dropdown">
           <li>
-            <NavLink to={`/${sessionUser.username.toLowerCase()}/profile`} className="dropdown__options" onClick={clickProfile}>Profile</NavLink>
+            <NavLink to={`/${sessionUser.username}/profile`} className="dropdown__options">Profile</NavLink>
           </li>
           <li>
             <NavLink to="/settings" className="dropdown__options">Settings</NavLink>

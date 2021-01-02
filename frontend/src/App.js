@@ -23,7 +23,6 @@ function App() {
   // State ------------------------
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user); 
-  const currentViewUserUrl = useSelector(state => state.user.currentViewUserUrl);
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -58,10 +57,10 @@ function App() {
           <Route exact path="/discover">
             <Discover />
           </Route>
-          <Route exact path={`/${sessionUser.username.toLowerCase()}/profile`}>
+          <Route path="/:username/profile">
             <Profile />
           </Route>
-          <Route exact path={`/${currentViewUserUrl}`}>
+          <Route exact path="/:username">
             <Profile />
           </Route>
           <Route exact path="/settings">

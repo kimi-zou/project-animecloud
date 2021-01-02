@@ -1,27 +1,28 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from "react-router-dom";
 
+import * as userActions from "../../store/user";
 import MusicPlayerContextProvider from "../../context/MusicPlayerContext";
 import ProfileHeader from "./ProfileHeader";
 import ProfileMeta from "./ProfileMeta";
 import ProfileTracks from "./ProfileTracks";
 import "./Profile.css";
-import * as trackActions from "../../store/track";
-import * as playerActions from "../../store/player";
 
 
 //-----------------------------------------------------
 const Profile = () => {
   const dispatch = useDispatch();
-
-  // State
+  const { username } = useParams();
+ 
+  // States
   const user = useSelector(state => state.user.currentViewUser); 
-  const tracks = useSelector(state => state.track.currentUserTracks);
+  const tracks = user.Tracks;
 
-  // Get User Tracks
+  // Set current view user
   useEffect(() => {
-    dispatch(trackActions.getTracks(user.id))
-  }, [user])
+    dispatch(userActions.getCurrentViewUser(username))
+  }, [username])
 
   return (
     <div className="profile__outer-container">
