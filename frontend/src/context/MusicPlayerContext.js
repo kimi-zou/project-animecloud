@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react"; 
+import React, { useState } from "react"; 
 import { useDispatch, useSelector } from "react-redux";
 
 import * as playerActions from "../store/player";
 
 //------------------------------------------------------------------------------
+export const MusicPlayerContext = React.createContext(); 
 
-export const MusicPlayerContext = React.createContext(); // 1. Create Context
-const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Provider
+const MusicPlayerContextProvider = ({ children }) => { 
   const dispatch = useDispatch(); // Get dispatch function
 
   //---------------- States -------------------
@@ -24,8 +24,10 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.3);
+  const [prgVol, setPrgVol] = useState(0.3);
+  const [disabledOn, setDisabledOn] = useState(true);
 
-  //---------------- Helper Functions -------------------
+  //---------------- Controls -------------------
   // 1. Play prev song 
   const prevSong = () => {
     if (playlist.length === 0 && currentSong) {
@@ -52,22 +54,81 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
     }
   }
 
-  // 3. Toggle playing state: Play/Pause
+  // 3. Toggle audio playing state
+  const toggleAudio = () => {
+    audioNode.current.paused ? audioNode.current.play() : audioNode.current.pause();
+  }
+
+  // 4. Toggle playing state: Play/Pause
   const togglePlayingState = () => {
     dispatch(playerActions.togglePlaying(playerState))
   }
 
-  // 4. Toggle shuffle 
+
+
+
+  //---------------- Random & Repeat -------------------
+  // 1. Toggle ramdom 
   const toggleRandomState = () => {
     dispatch(playerActions.toggleRandom(playerState));
   }
 
-  // 5. Toggle loop 
+  // 2. Toggle repeat 
   const toggleRepeatState = () => {
     dispatch(playerActions.toggleRepeat(playerState));
   }
 
-  // 6. Handle end of song 
+  // 8. Replay song
+  const replaySong = () => {
+    if(!playing) dispatch(playerActions.togglePlaying(playerState))
+    audioNode.current.currentTime = 0;
+    audioNode.current.play();
+  }
+
+
+  //---------------- Progress bar -------------------
+  // 1. Calculate progress bar time
+  const formatSecondsAsTime = (secs) => {
+    var hr  = Math.floor(secs / 3600);
+    var min = Math.floor((secs - (hr * 3600))/60);
+    var sec = Math.floor(secs - (hr * 3600) -  (min * 60));
+  
+    // if (min < 10) min = "0" + min;  
+    if (sec < 10) sec  = "0" + sec;
+  
+    return min + ':' + sec;
+  }
+
+  // 2. Update audio time when click on progress bar
+  const handleProgress = (e) => {
+    let compute = (e.target.value * duration) / 100;
+    setCurrentTime(compute);
+    audioNode.current.currentTime = compute;
+  }
+
+
+  //---------------- Volume -------------------
+  // 1. Update audio volume
+   const handleVolume = (vol) => {
+    setVolume(vol);
+    setPrgVol(vol);
+    audioNode.current.volume = vol;
+  }
+  
+  // 2. Toggle audio mute state
+  const toggleMute = () => {
+    if (audioNode.current.volume === 0) {
+      audioNode.current.volume = volume;
+      setPrgVol(volume);
+    } else {
+      audioNode.current.volume = 0;
+      setPrgVol(0);
+    } 
+  }
+
+
+  //---------------- Others -------------------
+  // 1. Handle end of song 
   const handleEnd = () => {
     if (playlist.length === 0) {
       if (repeat) {
@@ -87,37 +148,36 @@ const MusicPlayerContextProvider = ({ children }) => { // 2. Create a Context Pr
     }
   }
 
-  // 7. Calculate progress bar time
-  const fmtMSS = (s) => {
-    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + parseInt(s);
-  }
+  
 
-  // 8. Replay song
-  const replaySong = () => {
-    if(!playing) dispatch(playerActions.togglePlaying(playerState))
-    audioNode.current.currentTime = 0;
-    audioNode.current.play();
-  }
+  
+
+  
 
   //---------------- Render -------------------
   return (
     <>
       <MusicPlayerContext.Provider  
         value={{
+          disabledOn, setDisabledOn,
           currentTime, setCurrentTime,
           duration, setDuration,
           volume, setVolume,
+          prgVol, setPrgVol,
           prevSong, nextSong,
+          toggleAudio,
           togglePlayingState,
           toggleRandomState,
           toggleRepeatState,
           handleEnd,
-          fmtMSS,
+          handleProgress,
+          formatSecondsAsTime,
+          handleVolume,
+          toggleMute
         }}
       >
         {children}
       </MusicPlayerContext.Provider>
-      
     </>
   )
 };

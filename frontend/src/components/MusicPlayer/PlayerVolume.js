@@ -1,29 +1,23 @@
 import { useContext } from 'react';
-import { useSelector } from "react-redux";
 import { MusicPlayerContext } from "../../context/MusicPlayerContext";
 
 const PlayerVolume = () => {
-  const { volume, setVolume } = useContext(MusicPlayerContext)
-
-  // States
-  const playerState = useSelector(state => state.player); 
-  const audio = playerState.audioNode;
-  
-
-  // Helper Functions
-  const handleVolume = (vol) => {
-    setVolume(vol);
-    audio.current.volume = vol;
-  }
+  const { prgVol, handleVolume, toggleMute } = useContext(MusicPlayerContext)
 
   return (
     <div className="player__volume-session">
-      <i className="fas fa-volume-down"></i>
+      <div className="player__volume-icon">
+        { 
+          prgVol === 0  
+          ? <i className="fas fa-volume-mute" onClick={toggleMute} />
+          : <i className="fas fa-volume-down" onClick={toggleMute} />
+        }
+      </div>
       <input 
         type="range" 
         name="volbar" 
         id="volbar" 
-        value={Math.round(volume * 100)}
+        value={Math.round(prgVol * 100)}
         onChange={(e) => handleVolume(e.target.value / 100)}
       />
     </div>

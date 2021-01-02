@@ -95,6 +95,14 @@
 }
 
 /* Volume -------------------------- */
+.player__volume-icon {
+  width: 20px;
+}
+
+.player__volume-icon:hover {
+  cursor: pointer;
+}
+
 #volbar {
   height: 16px;
   -webkit-appearance: none;

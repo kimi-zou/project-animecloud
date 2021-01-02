@@ -35,7 +35,7 @@ const ModularDiscoverTrack = ({ track }) => {
             showButton && 
             <div className="discover__track-play-container">
               <button className="discover__track-play" type="button">
-                <i class="fas fa-play-circle fa-4x"></i>
+                <i className="fas fa-play-circle fa-4x"></i>
               </button> 
             </div>
           }
