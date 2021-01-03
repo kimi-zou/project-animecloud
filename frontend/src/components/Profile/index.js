@@ -26,8 +26,8 @@ const Profile = () => {
   return (
     <div className="profile__outer-container">
       <div className="profile__inner-container">
-        <ProfileHeader user={user}/>
-        <ProfileMeta user={user} tracks={user.Tracks}/>
+        <ProfileHeader />
+        <ProfileMeta />
         {user && user.Tracks.map((track, index) => { 
         return (<MusicPlayerContextProvider key={index}>
             <ProfileTracks track={track} user={user} key={track.id} index={index}/>

@@ -1,4 +1,11 @@
-const ProfileMeta = ({ user, tracks }) => {
+import { useSelector } from 'react-redux';
+
+const ProfileMeta = () => {
+  // States
+  const user = useSelector(state => state.user.currentViewUser); 
+  let tracks;
+  if (user) tracks = user.Tracks;
+
   return (
     <div className="profile__meta">
       <div className="meta__menu">Tracks</div>
@@ -13,7 +20,7 @@ const ProfileMeta = ({ user, tracks }) => {
         </div>
         <div className="meta__info-tracks meta__info-container">
           <span className="meta__info-label">Tracks</span>
-          <span className="meta__info-value">{tracks && tracks.length}</span>
+          <span className="meta__info-value">{tracks && (tracks.length || 0)}</span>
         </div>
       </div>
     </div> 

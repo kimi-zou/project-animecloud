@@ -1,4 +1,9 @@
-const ProfileHeader = ({ user }) => {
+import { useSelector } from 'react-redux';
+
+const ProfileHeader = () => {
+  // States
+  const user = useSelector(state => state.user.currentViewUser); 
+
   return (
     <div className="profile__header">
       <div className="profile-header__avatar">
