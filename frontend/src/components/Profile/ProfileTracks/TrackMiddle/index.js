@@ -13,13 +13,15 @@ const TrackMiddle = ({ track, index }) => {
 
   // Global states
   const user = useSelector(state => state.user.currentViewUser);
+  const playerState = useSelector(state => state.player);
   const audio = useSelector(state => state.player.audioNode); 
   const currentSong = useSelector(state => state.player.currentSong); 
+  const playing = useSelector(state => state.player.playing); 
   const waveform = useSelector(state => state.player.waveform); 
 
   // Context
   const { setCurrentTime } = useContext(MusicPlayerContext)
-  const { setLocalWave, setLocalTime } = useContext(ProfilePlayerContext)
+  const { setLocalWave, setLocalTime, onPlay, setOnPlay } = useContext(ProfilePlayerContext)
 
   // Create Wavesurfer and attach to component div
   useEffect(() => {
@@ -43,8 +45,20 @@ const TrackMiddle = ({ track, index }) => {
     wavesurfer.load(track.trackPath);
     wavesurfer.setMute(true);
     wavesurfer.on("seek", () => {
+      // Update progress bar and waveform time
       setCurrentTime(wavesurfer.getCurrentTime());
-      if(audio.current) audio.current.currentTime = wavesurfer.getCurrentTime();
+      setLocalTime(wavesurfer.getCurrentTime());
+      wavesurfer.play();
+      // Start global playing state and update icons
+      if (!playing && !onPlay) {
+        dispatch(playerActions.togglePlaying(playerState))
+        setOnPlay(true);
+      }
+      // Start audio playing
+      if(audio.current) {
+        audio.current.currentTime = wavesurfer.getCurrentTime();
+        audio.current.play();
+      }
     }) 
     wavesurfer.on("audioprocess", () => {
       setLocalTime(wavesurfer.getCurrentTime());

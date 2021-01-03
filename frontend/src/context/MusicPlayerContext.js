@@ -109,8 +109,10 @@ const MusicPlayerContextProvider = ({ children }) => {
 
   // 3. Update waveform to reflect progress change
   const updateWavePrg = () => {
-    waveform.seekTo(currentTime / waveform.getDuration())
-    waveform.play();
+    if(currentSong.id > -1) {
+      waveform.seekTo(currentTime / waveform.getDuration())
+      if (playing) waveform.play();
+    }
   }
 
 
