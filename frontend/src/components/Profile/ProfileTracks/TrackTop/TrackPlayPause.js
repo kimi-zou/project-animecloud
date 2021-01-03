@@ -5,36 +5,38 @@ import * as playerActions from "../../../../store/player";
 import { MusicPlayerContext } from "../../../../context/MusicPlayerContext";
 
 
-const TrackPlayPause = ({ track }) => {
+const TrackPlayPause = ({ track, localWave, onPlay, setOnPlay }) => {
   const dispatch = useDispatch();
 
   // States
   const playerState = useSelector(state => state.player); 
   const audio = useSelector(state => state.player.audioNode); 
   const currentSong = useSelector(state => state.player.currentSong); 
-  const time = useSelector(state => state.player.time); 
   const playing = useSelector(state => state.player.playing); 
 
   // Context
-  const { wave, onPlay, setOnPlay,} = useContext(MusicPlayerContext);
+  const { wave, currentTime } = useContext(MusicPlayerContext);
 
-
-
-  // 2. Set current song
+  // 1. Set current song
   const setSong = () => {
     if (currentSong.id !== track.id) {
-      dispatch(playerActions.setCurrentSong(track));
+      dispatch(playerActions.getCurrentSong(track.id))
     }
+  }
+
+  // 2. Set current Waveform
+  const setWaveform = () => {
+    dispatch(playerActions.saveWaveform(localWave));
   }
 
   // 3. Toggle Audio Playing state
   const toggleAudio = () => {
     // audio.current.paused && !onPlay ? audio.current.play() : audio.current.pause();
     if (audio.current.paused && !onPlay) {
-      audio.current.currentTime = time;
+      audio.current.currentTime = currentTime;
       audio.current.play();
     } else {
-      audio.current.currentTime = time;
+      audio.current.currentTime = currentTime;
       audio.current.pause();
     }
   }
@@ -61,7 +63,7 @@ const TrackPlayPause = ({ track }) => {
         setOnPlay(false);
         if(wave) wave.stop();
         if(audio.current) audio.current.currentTime = 0;
-        dispatch(playerActions.saveAudioTime(0));
+        // dispatch(playerActions.saveAudioTime(0));
       } else {
         if (!playing) {
           if (wave) wave.pause();
@@ -85,14 +87,14 @@ const TrackPlayPause = ({ track }) => {
         }
       }
     }, [playing])
-  
 
 
 
   return (
     <div className="profile-player__play-icon" onClick={() => { 
-      audio.current.src = track.trackPath;
+      dispatch(playerActions.setAudioSrc(track.trackPath));
       setSong(); 
+      setWaveform();
       toggleAudio(); 
       togglePlayingState(); 
       toggleButton();

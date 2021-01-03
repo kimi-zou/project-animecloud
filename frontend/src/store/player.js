@@ -77,8 +77,8 @@ export const saveWaveform = (waveform) => ({
 // 1. Get track by trackId
 export const getCurrentSong = (id) => async dispatch => {
   const res = await fetch(`/api/tracks/${id}`);
-  dispatch(setCurrentSong(res.data.track));
-  return res.data.track; 
+  dispatch(setCurrentSong(res.data.track[0]));
+  return res.data.track[0]; 
 }
 
 //---------------- Reducer -------------------

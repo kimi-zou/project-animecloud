@@ -19,6 +19,7 @@ const MusicPlayerContextProvider = ({ children }) => {
     repeat, 
     random,
     audioNode,
+    waveform
   } = useSelector(state => state.player); 
   // 2. Local - footer
   const [currentTime, setCurrentTime] = useState(0);
@@ -26,9 +27,7 @@ const MusicPlayerContextProvider = ({ children }) => {
   const [volume, setVolume] = useState(0.3);
   const [prgVol, setPrgVol] = useState(0.3);
   const [disabledOn, setDisabledOn] = useState(true);
-  // 3. Local - profile
-  const [wave, setWave] = useState();
-  const [onPlay, setOnPlay] = useState(false);
+
 
   //---------------- Controls -------------------
   // 1. Play prev song 
@@ -109,6 +108,11 @@ const MusicPlayerContextProvider = ({ children }) => {
     audioNode.current.currentTime = compute;
   }
 
+  // 3. Update waveform to reflect progress change
+  const updateWavePrg = () => {
+    waveform.seekTo(currentTime / waveform.getDuration())
+  }
+
 
   //---------------- Volume -------------------
   // 1. Update audio volume
@@ -167,14 +171,13 @@ const MusicPlayerContextProvider = ({ children }) => {
           duration, setDuration,
           volume, setVolume,
           prgVol, setPrgVol,
-          wave, setWave,
-          onPlay, setOnPlay,
           prevSong, nextSong,
           toggleAudio,
           togglePlayingState,
           toggleRandomState,
           toggleRepeatState,
           handleEnd,
+          updateWavePrg,
           handleProgress,
           formatSecondsAsTime,
           handleVolume,

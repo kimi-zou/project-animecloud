@@ -1,23 +1,20 @@
-import { useEffect, useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
 import WaveSurfer from 'wavesurfer.js';
 import CursorPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js';
 
 import { MusicPlayerContext } from "../../../../context/MusicPlayerContext";
-import * as playerActions from "../../../../store/player";
 
 
-const TrackMiddle = ({ track, index }) => {
-  const dispatch = useDispatch();
-
+const TrackMiddle = ({ track, index, setLocalWave }) => {
   // Global states
   const user = useSelector(state => state.user.currentViewUser);
-  const playerState = useSelector(state => state.player); 
-  const audio = playerState.audioNode;
-  
-  // Context
-  const { setCurrentTime, wave, setWave } = useContext(MusicPlayerContext)
+  const audio = useSelector(state => state.player.audioNode); 
 
+  // Context
+  const { setCurrentTime } = useContext(MusicPlayerContext)
+
+  // Create Wavesurfer and attach to component div
   useEffect(() => {
     const wavesurfer = WaveSurfer.create({
       container: `#waveform-${user.id}-${index}`,
@@ -38,13 +35,13 @@ const TrackMiddle = ({ track, index }) => {
     }) 
     wavesurfer.load(track.trackPath);
     wavesurfer.setMute(true);
-    wavesurfer.on("seek", (position) => {
-      const currentTime = position * wavesurfer.getDuration();
-      setCurrentTime(currentTime);
-      if(audio.current) audio.current.currentTime = currentTime;
+    wavesurfer.on("seek", () => {
+      console.log("from waveform: " + wavesurfer.getCurrentTime()); // Delete later
+      setCurrentTime(wavesurfer.getCurrentTime());
+      if(audio.current) audio.current.currentTime = wavesurfer.getCurrentTime();
     }) 
-    dispatch(playerActions.saveWaveform(wave));
-    setWave(wavesurfer);
+    setLocalWave(wavesurfer);
+
     return () => { 
       const waveContainer = document.getElementById(`waveform-${user.id}-${index}`);
       if(waveContainer) waveContainer.innerHTML = "";
