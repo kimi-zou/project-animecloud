@@ -13,7 +13,7 @@ import TrackBottom from "./TrackBottom/index";
 import "../Profile.css"; 
 
 // --------------------------------------------------------------------
-const ProfileTracks = ({ user, track, index }) => {
+const ProfileTracks = ({ user, track, index, key }) => {
   const dispatch = useDispatch();
 
   //----------------    States    -------------------

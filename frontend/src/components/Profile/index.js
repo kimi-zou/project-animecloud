@@ -30,7 +30,7 @@ const Profile = () => {
         <ProfileMeta user={user} tracks={user.Tracks}/>
         {user && user.Tracks.map((track, index) => { 
         return (<MusicPlayerContextProvider key={index}>
-            <ProfileTracks track={track} user={user} key={track.trackPath} index={index}/>
+            <ProfileTracks track={track} user={user} key={track.id} index={index}/>
           </MusicPlayerContextProvider>)
         })}
       </div>

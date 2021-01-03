@@ -27,20 +27,18 @@ router.post("/create", requireAuth, trackMulterUpload, asyncHandler(async(req, r
   return res.json({ track });
 }))
 
-// 2. Get tracks by user id
+// 2. Get track by trackId (along with user info)
 router.get("/:id", asyncHandler(async(req, res, next) => {
   const id = req.params.id;
-
-  const tracks = await Track.findAll({
-    where: {userId: id},
+  const track = await Track.findAll({
+    where: {id: id},
     include: User
-  })
-
-  if (tracks) {
-    return res.json({ tracks });
+  });
+  if (track) {
+    return res.json({ track });
   } else {
     return res.json({ });
-  }
+  };
 }))
 
 // 3. Get recent released tracks
@@ -53,7 +51,6 @@ router.get("/list/newest", asyncHandler(async(req, res, next) => {
   res.json({tracks});
 }))
 
-// 4. Get track by trackId
-// router.get("/"
+
 
 module.exports = router;

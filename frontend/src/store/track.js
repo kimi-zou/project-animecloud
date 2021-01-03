@@ -27,8 +27,8 @@ const setRecntReleasedTracks = (tracks) => ({
 // 1. Get tracks by user id
 export const getTracks = (id) => async dispatch => {
   const res = await fetch(`/api/tracks/${id}`);
-  dispatch(setCurrentUserTracks(res.data.tracks));
-  return res.data.tracks;
+  dispatch(setCurrentUserTracks(res.data.user));
+  return res.data.user;
 }
 
 // 2. Get recent released tracks

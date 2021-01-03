@@ -33,7 +33,7 @@ export const getPopularArtists = () => async dispatch => {
 
 // 2. Get user by username
 export const getCurrentViewUser = (username) => async dispatch => {
-  const res = await fetch(`/api/users/${username}`);
+  const res = await fetch(`/api/users/by/username/${username}`);
   dispatch(setCurrentViewUser(res.data.user[0]));
   return res.data.user[0];
 }

@@ -1,3 +1,5 @@
+import { fetch } from "./csrf";
+
 //---------------- State -------------------
 const initialState = { 
   waveform: null,
@@ -21,7 +23,7 @@ const SAVE_AUDIO_NODE = "player/SAVE_AUDIO";
 const SAVE_AUDIO_TIME = "player/SAVE_AUDIO_TIME";
 const SAVE_WAVEFORM = "player/SAVE_WAVEFORM";
 
-// POJO actions:
+// ---------------- POJO actions: -------------------
 // 0. Set audio source
 export const setAudioSrc = (path) => ({
   type: SET_AUDIO_SRC,
@@ -69,6 +71,15 @@ export const saveWaveform = (waveform) => ({
   type: SAVE_WAVEFORM,
   payload: waveform
 })
+
+
+// ---------------- Thunk actions: -------------------
+// 1. Get track by trackId
+export const getCurrentSong = (id) => async dispatch => {
+  const res = await fetch(`/api/tracks/${id}`);
+  dispatch(setCurrentSong(res.data.track));
+  return res.data.track; 
+}
 
 //---------------- Reducer -------------------
 const playerReducer = (state = initialState, action) => {

@@ -44,7 +44,37 @@ router.post("/", validateSignup, asyncHandler(async(req, res) => {
   return res.json({ user });
 }));
 
-// 2. Get popular artists
+// 2. Get User by ID (along with all the tracks)
+router.get("/:id", asyncHandler(async(req, res, next) => {
+  const id = req.params.id;
+  const user = await User.findAll({
+    where: {id: id},
+    include: Track,
+    order: [[ Track, "updatedAt", "DESC"]]
+  })
+  if (user) {
+    return res.json({ user });
+  } else {
+    return res.json({ });
+  }
+}))
+
+// 3. Get User by Username (along with all the tracks)
+router.get("/by/username/:username", asyncHandler(async(req, res, next) => {
+  const username = req.params.username;
+  const user = await User.findAll({
+    where: {username: username},
+    include: Track,
+    order: [[ Track, "updatedAt", "DESC"]]
+  })
+  if (user) {
+    return res.json({ user });
+  } else {
+    return res.json({ });
+  }
+}))
+
+// 4. Get popular artists
 router.get("/list/popular", asyncHandler(async(req, res, next) => {
   const data = await User.findAll({
     subQuery: false,
@@ -69,19 +99,6 @@ router.get("/list/popular", asyncHandler(async(req, res, next) => {
   res.json({user: data, tracks: tracks});
 }))
 
-// 3. Get user by username along with all the tracks
-router.get("/:username", asyncHandler(async(req, res, next) => {
-  const username = req.params.username;
-  const user = await User.findAll({
-    where: {username: username},
-    include: Track
-  })
 
-  if (user) {
-    return res.json({ user });
-  } else {
-    return res.json({ });
-  }
-}))
 
 module.exports = router;
