@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 import * as userActions from "../../store/user";
-import MusicPlayerContextProvider from "../../context/MusicPlayerContext";
 import ProfileHeader from "./ProfileHeader";
 import ProfileMeta from "./ProfileMeta";
 import ProfileTracks from "./ProfileTracks/index";
@@ -28,11 +27,9 @@ const Profile = () => {
       <div className="profile__inner-container">
         <ProfileHeader />
         <ProfileMeta />
-        {user && user.Tracks.map((track, index) => { 
-        return (<MusicPlayerContextProvider key={index}>
-            <ProfileTracks track={track} user={user} key={track.id} index={index}/>
-          </MusicPlayerContextProvider>)
-        })}
+        {user && user.Tracks.map((track, index) => 
+          <ProfileTracks track={track} key={track.id} index={index}/>
+        )}
       </div>
     </div>
   )

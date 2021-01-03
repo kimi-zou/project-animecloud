@@ -7,10 +7,11 @@ import { MusicPlayerContext } from "../../../../context/MusicPlayerContext";
 import * as playerActions from "../../../../store/player";
 
 
-const TrackMiddle = ({ track, user, index }) => {
+const TrackMiddle = ({ track, index }) => {
   const dispatch = useDispatch();
 
-  // State
+  // Global states
+  const user = useSelector(state => state.user.currentViewUser);
   const playerState = useSelector(state => state.player); 
   const audio = playerState.audioNode;
   

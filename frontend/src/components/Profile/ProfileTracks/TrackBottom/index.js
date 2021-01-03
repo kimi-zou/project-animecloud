@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-const TrackBottom = ({ user }) => {
-
+const TrackBottom = () => {
   const sessionUser = useSelector(state => state.session.user); 
+  const user = useSelector(state => state.user.currentViewUser);
 
   return (
     <div className="profile-player__bottom">

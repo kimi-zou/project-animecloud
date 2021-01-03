@@ -1,7 +1,8 @@
 import TrackPlayPause from "./TrackPlayPause";
 import TrackTitle from "./TrackTitle";
 
-const TrackTop = ({ track, user }) => {
+const TrackTop = ({ track }) => {
+
   const calTime = () => {
     const currentTime = Date.now();
     const trackCreatedTime = new Date(track.updatedAt);
@@ -15,7 +16,7 @@ const TrackTop = ({ track, user }) => {
     <div className="profile-player__top">
       <div className="profile-player__top-left">
         <TrackPlayPause track={track}/>
-        <TrackTitle user={user} track={track}/>
+        <TrackTitle track={track}/>
       </div>
       <div className="profile-player__date">{calTime()}</div>
     </div>

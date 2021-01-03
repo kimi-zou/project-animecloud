@@ -54,6 +54,41 @@ const TrackPlayPause = ({ track }) => {
   // 5. Toggle button according to state
   const toggleButton = () => playing ? setOnPlay(false) : setOnPlay(true);
 
+    //----------------    Event Listeners   -------------------
+    useEffect(() => {
+      if (!currentSong) return;
+      if (currentSong && currentSong.id !== track.id) {
+        setOnPlay(false);
+        if(wave) wave.stop();
+        if(audio.current) audio.current.currentTime = 0;
+        dispatch(playerActions.saveAudioTime(0));
+      } else {
+        if (!playing) {
+          if (wave) wave.pause();
+          setOnPlay(false);
+        } else {
+          if(wave) wave.play();
+          setOnPlay(true);
+        }
+      }
+    }, [currentSong])
+    
+    useEffect(() => {
+      if(!currentSong) return;
+      if(currentSong.id === track.id) {
+        if (playing) {
+          if(wave) wave.play();
+          setOnPlay(true);
+        } else {
+          if (wave) wave.pause();
+          setOnPlay(false);
+        }
+      }
+    }, [playing])
+  
+
+
+
   return (
     <div className="profile-player__play-icon" onClick={() => { 
       audio.current.src = track.trackPath;
