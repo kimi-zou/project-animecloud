@@ -1,18 +1,25 @@
 import { useEffect, useContext } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import WaveSurfer from 'wavesurfer.js';
 import CursorPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js';
 
+import * as playerActions from "../../../../store/player";
 import { MusicPlayerContext } from "../../../../context/MusicPlayerContext";
+import { ProfilePlayerContext } from "../../../../context/ProfilePlayerContext";
 
 
-const TrackMiddle = ({ track, index, setLocalWave }) => {
+const TrackMiddle = ({ track, index }) => {
+  const dispatch = useDispatch();
+
   // Global states
   const user = useSelector(state => state.user.currentViewUser);
   const audio = useSelector(state => state.player.audioNode); 
+  const currentSong = useSelector(state => state.player.currentSong); 
+  const waveform = useSelector(state => state.player.waveform); 
 
   // Context
   const { setCurrentTime } = useContext(MusicPlayerContext)
+  const { setLocalWave, setLocalTime } = useContext(ProfilePlayerContext)
 
   // Create Wavesurfer and attach to component div
   useEffect(() => {
@@ -36,10 +43,12 @@ const TrackMiddle = ({ track, index, setLocalWave }) => {
     wavesurfer.load(track.trackPath);
     wavesurfer.setMute(true);
     wavesurfer.on("seek", () => {
-      console.log("from waveform: " + wavesurfer.getCurrentTime()); // Delete later
       setCurrentTime(wavesurfer.getCurrentTime());
       if(audio.current) audio.current.currentTime = wavesurfer.getCurrentTime();
     }) 
+    wavesurfer.on("audioprocess", () => {
+      setLocalTime(wavesurfer.getCurrentTime());
+    })
     setLocalWave(wavesurfer);
 
     return () => { 

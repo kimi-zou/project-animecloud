@@ -10,8 +10,7 @@ const PlayerProgressBar = () => {
   return (
     <div className="player__progress-session">
       <span className="progress__current-time">{formatSecondsAsTime(currentTime)}</span>
-      <MusicPlayerContext.Consumer>
-        {({currentTime}) => (
+      
           <input 
             type="range" name="progressBar" id="prgbar" 
             onChange={(e) => {
@@ -20,8 +19,7 @@ const PlayerProgressBar = () => {
             }}
             value={duration ? (currentTime * 100) / duration : 0}
           />
-        )}
-      </MusicPlayerContext.Consumer>
+
       <span className="progress__total-time">{formatSecondsAsTime(duration)}</span>
     </div>
   )

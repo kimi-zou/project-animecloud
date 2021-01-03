@@ -21,6 +21,7 @@ const MusicPlayer = ({ user }) => {
 
   // States
   const audioSrc = useSelector(state => state.player.audioSrc); 
+  const currentSong = useSelector(state => state.player.currentSong); 
 
   // Save the <audio> DOM into Global State
   useEffect(() => dispatch(playerActions.saveAudioNode(audioRef)), []);
@@ -28,10 +29,7 @@ const MusicPlayer = ({ user }) => {
   return (
     <div className="player-container">
       <audio 
-        onTimeUpdate={(e) => {
-          setCurrentTime(e.target.currentTime); 
-          // dispatch(playerActions.saveAudioTime(e.target.currentTime))
-        }} // currentTime has been updated
+        onTimeUpdate={(e) => { setCurrentTime(e.target.currentTime) }}
         onCanPlay={(e) => setDuration(e.target.duration)} // The browser can play the media
         onEnded={handleEnd} // When media reacheds the end
         crossOrigin="anonymous"
@@ -39,7 +37,7 @@ const MusicPlayer = ({ user }) => {
         ref={audioRef} 
         type="audio/mpeg" 
         preload="true"
-        src={audioSrc} 
+        // src={currentSong.id > -1 && currentSong.trackPath} 
       />
       <PlayerControls />
       <PlayerProgressBar />

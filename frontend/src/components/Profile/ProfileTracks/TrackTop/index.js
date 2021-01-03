@@ -1,7 +1,7 @@
 import TrackPlayPause from "./TrackPlayPause";
 import TrackTitle from "./TrackTitle";
 
-const TrackTop = ({ track, localWave, onPlay, setOnPlay }) => {
+const TrackTop = ({ track, localWave, onPlay, setOnPlay, localTime }) => {
 
   const calTime = () => {
     const currentTime = Date.now();
@@ -15,7 +15,7 @@ const TrackTop = ({ track, localWave, onPlay, setOnPlay }) => {
   return (
     <div className="profile-player__top">
       <div className="profile-player__top-left">
-        <TrackPlayPause track={track} localWave={localWave} onPlay={onPlay} setOnPlay={setOnPlay}/>
+        <TrackPlayPause track={track} localWave={localWave} onPlay={onPlay} setOnPlay={setOnPlay} localTime={localTime}/>
         <TrackTitle track={track}/>
       </div>
       <div className="profile-player__date">{calTime()}</div>

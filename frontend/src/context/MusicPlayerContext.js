@@ -22,12 +22,11 @@ const MusicPlayerContextProvider = ({ children }) => {
     waveform
   } = useSelector(state => state.player); 
   // 2. Local - footer
-  const [currentTime, setCurrentTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(10);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.3);
   const [prgVol, setPrgVol] = useState(0.3);
   const [disabledOn, setDisabledOn] = useState(true);
-
 
   //---------------- Controls -------------------
   // 1. Play prev song 
@@ -111,6 +110,7 @@ const MusicPlayerContextProvider = ({ children }) => {
   // 3. Update waveform to reflect progress change
   const updateWavePrg = () => {
     waveform.seekTo(currentTime / waveform.getDuration())
+    waveform.play();
   }
 
 
@@ -163,30 +163,28 @@ const MusicPlayerContextProvider = ({ children }) => {
 
   //---------------- Render -------------------
   return (
-    <>
-      <MusicPlayerContext.Provider  
-        value={{
-          disabledOn, setDisabledOn,
-          currentTime, setCurrentTime,
-          duration, setDuration,
-          volume, setVolume,
-          prgVol, setPrgVol,
-          prevSong, nextSong,
-          toggleAudio,
-          togglePlayingState,
-          toggleRandomState,
-          toggleRepeatState,
-          handleEnd,
-          updateWavePrg,
-          handleProgress,
-          formatSecondsAsTime,
-          handleVolume,
-          toggleMute
-        }}
-      >
-        {children}
-      </MusicPlayerContext.Provider>
-    </>
+    <MusicPlayerContext.Provider  
+      value={{
+        disabledOn, setDisabledOn,
+        currentTime, setCurrentTime,
+        duration, setDuration,
+        volume, setVolume,
+        prgVol, setPrgVol,
+        prevSong, nextSong,
+        toggleAudio,
+        togglePlayingState,
+        toggleRandomState,
+        toggleRepeatState,
+        handleEnd,
+        updateWavePrg,
+        handleProgress,
+        formatSecondsAsTime,
+        handleVolume,
+        toggleMute
+      }}
+    >
+      {children}
+    </MusicPlayerContext.Provider>
   )
 };
 
