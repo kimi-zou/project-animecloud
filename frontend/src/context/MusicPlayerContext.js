@@ -22,7 +22,7 @@ const MusicPlayerContextProvider = ({ children }) => {
     waveform
   } = useSelector(state => state.player); 
   // 2. Local - footer
-  const [currentTime, setCurrentTime] = useState(10);
+  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.3);
   const [prgVol, setPrgVol] = useState(0.3);

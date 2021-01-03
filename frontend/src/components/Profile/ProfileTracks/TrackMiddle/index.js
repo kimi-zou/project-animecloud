@@ -47,19 +47,9 @@ const TrackMiddle = ({ track, index }) => {
     wavesurfer.on("seek", () => {
       // Update progress bar and waveform time
       setCurrentTime(wavesurfer.getCurrentTime());
-      setLocalTime(wavesurfer.getCurrentTime());
-      wavesurfer.play();
-      // Start global playing state and update icons
-      if (!playing && !onPlay) {
-        dispatch(playerActions.togglePlaying(playerState))
-        setOnPlay(true);
+      if (audio.current) audio.current.currentTime = wavesurfer.getCurrentTime();
       }
-      // Start audio playing
-      if(audio.current) {
-        audio.current.currentTime = wavesurfer.getCurrentTime();
-        audio.current.play();
-      }
-    }) 
+    ) 
     wavesurfer.on("audioprocess", () => {
       setLocalTime(wavesurfer.getCurrentTime());
     })
