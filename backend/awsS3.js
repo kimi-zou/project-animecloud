@@ -1,19 +1,19 @@
-const AWS = require("aws-sdk");
-const multer = require("multer");
-const uuid = require("uuid").v4;
-const path = require("path");
+const AWS = require('aws-sdk');
+const multer = require('multer');
+const uuid = require('uuid').v4;
+const path = require('path');
 
-const NAME_OF_BUCKET = "animecloud";
-const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+const NAME_OF_BUCKET = 'animecloud';
+const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 // --------------------------- Upload Track Form ------------------------
 const storage = multer.memoryStorage();
-const trackMulterUpload = multer({ 
-  storage, 
-  limits: {fileSize: "10mb"}
+const trackMulterUpload = multer({
+  storage,
+  limits: { fileSize: '10mb' }
 }).fields([
-  { name: "trackFile", maxCount: 1},
-  { name: "trackCover", maxCount: 1}
+  { name: 'trackFile', maxCount: 1 },
+  { name: 'trackCover', maxCount: 1 }
 ]);
 
 const s3Upload = async (trackFile, folder) => {
@@ -23,13 +23,13 @@ const s3Upload = async (trackFile, folder) => {
     Bucket: NAME_OF_BUCKET,
     Key,
     Body: buffer,
-    ACL: "public-read",
-  }
+    ACL: 'public-read'
+  };
   const result = await s3.upload(uploadParams).promise();
   return result.Location;
-}
+};
 
 module.exports = {
-  trackMulterUpload, 
+  trackMulterUpload,
   s3Upload
 };
