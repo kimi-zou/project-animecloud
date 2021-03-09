@@ -6,8 +6,6 @@
 
 * About the project: AnimeCloud is a full-stack SoundCloud clone specifically for Japanese anime songs. 
 * View live: [AnimeCloud live app](https://anime-cloud.herokuapp.com/)
-* Demo User: Demo-lition
-* Demo Password: password
 
 <br />
 
