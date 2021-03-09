@@ -6,7 +6,7 @@
   "scripts": {
     "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
-    "start": "per-env",
+    "start": "PATH=$PATH:./node_modules/.bin per-env",
     "start:development": "nodemon -r dotenv/config ./bin/www",
     "start:production": "node ./bin/www"
   },
@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.818.0",
+    "aws-sdk": "^2.839.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",

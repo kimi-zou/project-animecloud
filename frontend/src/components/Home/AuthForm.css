@@ -64,7 +64,8 @@
 }
 
 /*------------ Submit Button --------------*/
-.auth__submit {
+.auth__submit,
+.login__login {
   background-color: #f50;
   border-radius: 3px;
   border: 1px solid #f50;
@@ -74,9 +75,18 @@
   margin-top: 15px;
   margin-bottom: 5px;
   padding: 10px 15px;
-  height: 40px;
+  height: 38px;
 }
 
 .auth__submit:hover {
   border: 1px solid rgb(247, 139, 85);
+}
+
+.login__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login__login {
+  width: 49%;
 }

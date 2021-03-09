@@ -31,6 +31,12 @@ const LoginForm = () => {
       });
   }
 
+  // Demo Login
+  const demoLogin = async () => {
+    await dispatch(sessionActions.login({credential: 'Demo-lition', password: 'password'}))
+    history.push("/discover");
+  }
+
   // Virtual DOM
   return (
     <>
@@ -60,7 +66,10 @@ const LoginForm = () => {
           className="auth__input"
           required
         />
-        <button type="submit" className="auth__submit">Log In</button>
+        <div className='login__buttons'>
+          <button type="submit" className="login__login">Log In</button>
+          <button type="button" className="login__login" onClick={demoLogin}>Demo Login</button>
+        </div>
       </form>
     </>
   );
