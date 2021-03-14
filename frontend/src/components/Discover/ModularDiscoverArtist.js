@@ -11,8 +11,8 @@ const ModularDiscoverArtist = ({ artist }) => {
   return (
     <>
       <div className="discover__artist-container"
-        onMouseEnter={()=>setShowButton(true)}
-        onMouseLeave={()=>setShowButton(false)} 
+        // onMouseEnter={()=>setShowButton(true)}
+        // onMouseLeave={()=>setShowButton(false)} 
       >
         <NavLink 
           to={`/users/${artist.username}`}

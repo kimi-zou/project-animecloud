@@ -56,9 +56,9 @@ const ProfileButton = () => {
           <li>
             <NavLink to={`/${sessionUser.username}/profile`} className="dropdown__options">Profile</NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/settings" className="dropdown__options">Settings</NavLink>
-          </li>
+          </li> */}
           <li>
             <button onClick={logout} className="dropdown__logout">Log out</button>
           </li>

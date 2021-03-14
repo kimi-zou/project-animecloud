@@ -17,7 +17,7 @@ const Navigation = ({ isLoaded }) => {
 
   // Handler: submit
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
   }
 
   // Virtual DOM
@@ -31,7 +31,7 @@ const Navigation = ({ isLoaded }) => {
           <NavLink className="nav-menu__discover" exact to="/discover">
             Discover
           </NavLink>
-          <div className="nav-search">
+          {/* <div className="nav-search">
             <form className="nav-search__form" onSubmit={handleSubmit}>
               <input 
                 className="nav-search__input" 
@@ -45,7 +45,7 @@ const Navigation = ({ isLoaded }) => {
                 <i className="fas fa-search"></i>
               </button>
             </form>
-          </div>
+          </div> */}
         </div>
         <div className="nav-right">
           <NavLink className="nav-upload" exact to="/upload">Upload</NavLink>

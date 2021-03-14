@@ -13,7 +13,7 @@ import hero3 from "../../assets/hero/fate-zero.jpg";
 const Home = () => {
   return (
     <div className="home__container">
-      <HomeNavigation />
+      <HomeNavigation /> 
       <Carousel pause={false}>
         <Carousel.Item className="nav__hero-images" interval={4000}>
           <img

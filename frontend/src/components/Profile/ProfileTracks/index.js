@@ -21,7 +21,7 @@ const ProfileTracks = ({ track, index }) => {
             <TrackMiddle track={track} index={index} />
           </ProfilePlayerContextProvider>
         </MusicPlayerContextProvider>
-        <TrackBottom />
+        {/* <TrackBottom /> */}
       </div>
     </div>
   )

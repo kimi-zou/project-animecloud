@@ -1,8 +1,7 @@
 .home__container {
   position: relative;
-  width: 1240px;
-  height: 100vh;
-  /* height: calc(100vh - 48px); */
+  width: 100vw;
+  height: calc(100vh - 100px);
   margin: 0 auto;
 }
 
@@ -11,7 +10,7 @@
   z-index: 10;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 100vw;
   height: 100px;
   padding: 20px 30px 0 30px;
 }
@@ -77,8 +76,8 @@
 /* -------------  Hero img  ------------- */
 .nav__hero-images {
   z-index: -10;
-  width: 1240px;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 

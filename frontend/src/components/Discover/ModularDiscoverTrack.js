@@ -14,7 +14,7 @@ const ModularDiscoverTrack = ({ track }) => {
   //--------------------- Helper Functions ------------------------
   // 1. Redirect user to artist page  
   const onHover = () => {
-    setShowButton(true)
+    // setShowButton(true)
   }
 
   const offHover = () => {

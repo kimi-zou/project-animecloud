@@ -18,11 +18,11 @@
   min-width: 100%;
   object-fit: cover;
 }
-
+/* 
 .discover__track-cover img:hover {
   cursor: pointer;
   opacity: 0.35;
-}
+} */
 
 .discover__track-title {
   margin-top: 10px;

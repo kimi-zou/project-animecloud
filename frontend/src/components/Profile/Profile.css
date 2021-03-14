@@ -36,7 +36,7 @@
 }
 
 .profile-header__avatar-img {
-  max-height: 100%;
+  height: 100%;
   min-width: 100%;
   object-fit: cover;
 }
