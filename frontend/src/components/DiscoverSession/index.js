@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
-import "./Discover.css";
-import ModularDiscoverTrack from "./ModularDiscoverTrack";
-import ModularDiscoverArtist from "./ModularDiscoverArtist";
+import ModularDiscoverTrack from "../Discover/ModularDiscoverTrack";
+import ModularDiscoverArtist from "../Discover/ModularDiscoverArtist";
 
 //--------------------- Component ------------------------
-const ModularDiscover = ({type, title, description}) => {
+const DiscoverSession = ({type, title, description}) => {
   //--------------------- States ------------------------
   const { popularArtists } = useSelector(state => state.user);
   const { recentReleasedTracks } = useSelector(state => state.track);
@@ -27,4 +26,5 @@ const ModularDiscover = ({type, title, description}) => {
   )
 }
 
-export default ModularDiscover;
+
+export default DiscoverSession;

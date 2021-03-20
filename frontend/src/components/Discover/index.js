@@ -1,17 +1,17 @@
-import ModularDiscover from "./ModularDiscover";
+import DiscoverSession from '../DiscoverSession';
 import "./Discover.css";
 
 //--------------------- Component ------------------------
 const Discover = () => {
   return (
     <div className="discover__outer-container">
-      <ModularDiscover 
+      <DiscoverSession 
         className="discover__modular-container"
         type="track"
         title="New Releases"
         description="Discover the latest music"
       />
-      <ModularDiscover 
+      <DiscoverSession 
         className="discover__modular-container"
         type="artist"
         title="Popular Artists"
